@@ -1,1 +1,250 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    box-sizing: border-box;
+    user-select: none;
+    scroll-behavior: smooth;
+}
+
+@font-face {
+    font-family: 'DM Sans';
+    src: url(/assets/fonts/DMSans-VariableFont_opsz,wght.ttf);
+}
+
+@mixin transition-75 {
+    transition: all 125ms ease-in-out;
+}
+
+@mixin transition-100 {
+    transition: all 100ms ease-out;
+}
+
+@mixin card-box($width, $radius, $padding, $gap) {
+    width: $width;
+    radius: $radius;
+    padding: $padding;
+    gap: $gap;
+    background-color: var(--card-background);
+}
+
+@mixin button {
+    height: 48px;
+    radius: 40px;
+    padding: 12px 24px;
+    gap: 10px;
+    background-color: var(--primary);
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--black);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 8px;
+}
+
+:root {
+    --primary: rgba(46, 62, 223, 1);
+    --secondary: rgba(94, 94, 94, 1);
+    --card-background: rgba(27, 27, 34, 0.85);
+    --white: rgba(255, 255, 255, 1);
+    --black: rgba(1, 1, 1, 1);
+    --txt-gray: rgba(83, 84, 86, 1);
+    --utility-white: rgba(211, 211, 211, 1);
+    --text-field-bg: rgba(28, 26, 32, 0.8);
+    --error-red: rgba(255, 0, 46, 1);
+    --gradient-right: linear-gradient(88.67deg, rgba(20, 20, 20, 0) 1.13%, #141414 48.04%);
+    --gradient-bottom: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 50%);
+}
+
+h1 {
+    font-family: 'DM Sans';
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--white);
+}
+
+h2 {
+    font-family: 'DM Sans';
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--white);
+}
+
+h3 {
+    font-family: 'DM Sans';
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+
+h4 {
+    font-family: 'DM Sans';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--white);
+}
+
+h5 {
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--white);
+}
+
+h6 {
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--white);
+}
+
+p {
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--white);
+}
+
+.p-bold {
+    font-weight: 700;
+}
+
+.p-u-white {
+    color: var(--utility-white);
+}
+
+a {
+    font-family: 'DM Sans';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: var(--white);
+    cursor: pointer;
+}
+
+span {
+    font-family: 'DM Sans';
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: var(--white);
+}
+
+.f-size-16 {
+    font-size: 16px;
+}
+
+.f-size-16 {
+    font-size: 18px;
+}
+
+.errormsg {
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 100%;
+    color: var(--error-red);
+}
+
+.text-a-center {
+    text-align: center;
+}
+
+.loader {
+    width: 50px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--primary);
+    --_m:
+        conic-gradient(#0000 10%, #000),
+        linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+    mask: var(--_m);
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+    animation: loading 1s infinite linear;
+}
+
+input {
+    height: 48px;
+    border-radius: 10px;
+    border: 1px solid var(--primary);
+    background-color: var(--text-field-bg);
+    padding: 12px 24px;
+    display: flex;
+    gap: 12px;
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    outline: none;
+    @include transition-75;
+    cursor: text;
+
+    &::placeholder {
+        color: var(--secondary);
+    }
+
+    &:active {
+        border-color: var(--secondary);
+    }
+
+    &:focus,
+    &:focus-visible {
+        border-color: var(--secondary);
+    }
+
+    &.invalidInput {
+        border-color: var(--error-red);
+    }
+}
+
+button {
+    height: 48px;
+    border-radius: 40px;
+    padding: 12px 24px;
+    gap: 10px;
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    @include transition-75;
+
+    &[disabled],
+    &:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
+
+        &:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+    }
+}
