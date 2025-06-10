@@ -4,6 +4,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ForgetPwComponent } from './pages/forget-pw/forget-pw.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { ImprintComponent } from './pages/imprint/imprint.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 
 export const routes: Routes = [
     {
@@ -30,5 +32,13 @@ export const routes: Routes = [
     {
         path: 'signup',
         component: SignupComponent
-    }
+    },
+    {
+        path: 'imprint',
+        component: ImprintComponent
+    },
+    {
+        path: 'privacy-policy',
+        component: PrivacyPolicyComponent
+    },
 ];
