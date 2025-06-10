@@ -3,11 +3,12 @@
     box-sizing: border-box;
     user-select: none;
     scroll-behavior: smooth;
+    color: var(--white);
 }
 
 @font-face {
     font-family: 'DM Sans';
-    src: url(/assets/fonts/DMSans-VariableFont_opsz,wght.ttf);
+    src: url(assets/fonts/DMSans-VariableFont_opsz,wght.ttf);
 }
 
 @mixin transition-75 {
@@ -56,7 +57,9 @@ body {
 
 :root {
     --primary: rgba(46, 62, 223, 1);
-    --secondary: rgba(94, 94, 94, 1);
+    --secondary: rgba(46, 61, 223, 0.8);
+    --third: rgba(123,12,254, 1);
+    --inactive: rgba(94, 94, 94, 1);
     --card-background: rgba(27, 27, 34, 0.85);
     --white: rgba(255, 255, 255, 1);
     --black: rgba(1, 1, 1, 1);
@@ -146,6 +149,16 @@ a {
     letter-spacing: 0%;
     color: var(--white);
     cursor: pointer;
+    text-decoration: none;
+    @include transition-75;
+
+    &:hover {
+        color: var(--primary);
+    }
+
+    &:active {
+        color: var(--third);
+    }
 }
 
 span {
@@ -194,13 +207,14 @@ span {
 }
 
 input {
+    width: 360px;
     height: 48px;
-    border-radius: 10px;
-    border: 1px solid var(--primary);
-    background-color: var(--text-field-bg);
+    border-radius: 40px;
+    border: 1px solid var(--white);
+    background-color: transparent;
     padding: 12px 24px;
     display: flex;
-    gap: 12px;
+    gap: 10px;
     font-family: 'DM Sans';
     font-weight: 400;
     font-size: 18px;
@@ -211,7 +225,7 @@ input {
     cursor: text;
 
     &::placeholder {
-        color: var(--secondary);
+        color: var(--white);
     }
 
     &:active {
@@ -221,6 +235,10 @@ input {
     &:focus,
     &:focus-visible {
         border-color: var(--secondary);
+
+        &::placeholder {
+            color: transparent;
+        }
     }
 
     &.invalidInput {
@@ -236,15 +254,30 @@ button {
     background-color: var(--primary);
     border: 1px solid var(--primary);
     @include transition-75;
+    cursor: pointer;
+
+    &:hover  {
+        background-color: var(--secondary);
+        border-color: var(--secondary);
+    }
+
+    &:active {
+        background-color: var(--third);
+        border-color: var(--third);
+    }
 
     &[disabled],
     &:disabled {
-        opacity: 0.8;
         cursor: not-allowed;
 
         &:hover {
-            background-color: var(--primary);
-            border-color: var(--primary);
+            background-color: var(--inactive);
+            border-color: var(--inactive);
         }
     }
+}
+
+.icon {
+    width: 14px;
+    height: 14px;
 }
