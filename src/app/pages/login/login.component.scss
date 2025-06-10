@@ -10,9 +10,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    @include transition-100;
 }
 
-.login-form {
+form {
     width: 520px;
     display: flex;
     flex-direction: column;
@@ -27,7 +28,7 @@
 .inputfield-container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
 }
 
 .inputfield-content {

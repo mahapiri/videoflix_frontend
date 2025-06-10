@@ -6,6 +6,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 32px;
+    @include transition-100;
 }
 
 .atf {

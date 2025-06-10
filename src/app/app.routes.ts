@@ -3,6 +3,7 @@ import { StartComponent } from './pages/start/start.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ForgetPwComponent } from './pages/forget-pw/forget-pw.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 export const routes: Routes = [
     {
@@ -25,5 +26,9 @@ export const routes: Routes = [
     {
         path: 'forget-pw',
         component: ForgetPwComponent
+    },
+    {
+        path: 'signup',
+        component: SignupComponent
     }
 ];

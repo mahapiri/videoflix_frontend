@@ -10,13 +10,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    @include transition-100;
 
     h1, p {
         text-align: center;
     }
 }
 
-.form {
+form {
     width: 520px;
     display: flex;
     flex-direction: column;
