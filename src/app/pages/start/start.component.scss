@@ -1,3 +1,5 @@
+@use "../../../styles.scss" as *;
+
 .main-container {
     height: 100%;
     display: flex;
@@ -6,22 +8,15 @@
     gap: 32px;
 }
 
-.background-image {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: -10%;
-    z-index: -1;
-    background: linear-gradient(180deg, #000000 .89%, rgba(0, 0, 0, 0.55) 55%, #000000 100%), url("/assets/img/background/start.jpg");
-    background-size: cover;
-    background-position: center;
-}
-
 .atf {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
+}
+
+.bg-image {
+    @include bg-img(#000000, -19.89%, rgba(0, 0, 0, 0.55), 55.46%, "assets/img/background/start.jpg")
 }
 
 .signup-form {
@@ -34,4 +29,8 @@
         align-items: center;
         gap: 8px;
     }
+}
+
+.inputfield {
+    @include input-params(360px, 40px, var(--white), 10px)
 }

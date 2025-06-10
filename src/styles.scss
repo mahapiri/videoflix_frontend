@@ -35,11 +35,34 @@
     background-color: var(--primary);
 }
 
+@mixin bg-img($color1, $pos1, $color2, $pos2, $url) {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    background: var(--card-background);
+    background: linear-gradient(180deg,
+        #{$color1} #{$pos1},
+        #{$color2} #{$pos2},
+        rgba(0, 0, 0, 0.8) 100%),
+    url(#{$url});
+    background-size: cover;
+    background-position: center;
+}
+
+@mixin input-params($width, $border-radius, $border-color, $gap) {
+    width: #{$width};
+    border-radius: #{$border-radius};
+    border-color: #{$border-color};
+    gap: #{$gap};
+}
+
 body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background-color: var(--black);
+    background: var(--black);
 }
 
 ::-webkit-scrollbar {
@@ -58,7 +81,7 @@ body {
 :root {
     --primary: rgba(46, 62, 223, 1);
     --secondary: rgba(46, 61, 223, 0.8);
-    --third: rgba(123,12,254, 1);
+    --third: rgba(123, 12, 254, 1);
     --inactive: rgba(94, 94, 94, 1);
     --card-background: rgba(27, 27, 34, 0.85);
     --white: rgba(255, 255, 255, 1);
@@ -133,7 +156,7 @@ p {
     color: var(--white);
 }
 
-.p-bold {
+.weight-700 {
     font-weight: 700;
 }
 
@@ -207,14 +230,11 @@ span {
 }
 
 input {
-    width: 360px;
     height: 48px;
-    border-radius: 40px;
-    border: 1px solid var(--white);
-    background-color: transparent;
+    border: 1px solid;
+    background-color: var(--text-field-bg);
     padding: 12px 24px;
     display: flex;
-    gap: 10px;
     font-family: 'DM Sans';
     font-weight: 400;
     font-size: 18px;
@@ -247,6 +267,7 @@ input {
 }
 
 button {
+    width: max-content;
     height: 48px;
     border-radius: 40px;
     padding: 12px 24px;
@@ -256,7 +277,7 @@ button {
     @include transition-75;
     cursor: pointer;
 
-    &:hover  {
+    &:hover {
         background-color: var(--secondary);
         border-color: var(--secondary);
     }
@@ -269,15 +290,12 @@ button {
     &[disabled],
     &:disabled {
         cursor: not-allowed;
-
-        &:hover {
-            background-color: var(--inactive);
-            border-color: var(--inactive);
-        }
+        background-color: var(--inactive) !important;
+        border-color: var(--inactive) !important;
     }
 }
 
 .icon {
-    width: 14px;
-    height: 14px;
+    width: 24px;
+    height: 24px;
 }
