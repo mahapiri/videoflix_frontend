@@ -1,5 +1,5 @@
 <header>
-    <img routerLink="/dashboard" class="logo" src="assets/img/logo-full.svg" alt="Videoflix Logo">
+    <img routerLink="/dashboard" class="logo" [class.w-200]="!(sharedService.isDashboard$ | async)" [src]="(sharedService.isDashboard$ | async) ? 'assets/img/logo.svg': 'assets/img/logo-full.svg'" src="assets/img/logo-full.svg" alt="Videoflix Logo">
     <button routerLink="/login">
         <p class="weight-700">Log in</p>
     </button>
