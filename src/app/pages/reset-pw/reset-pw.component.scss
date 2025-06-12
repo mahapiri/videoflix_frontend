@@ -78,4 +78,8 @@ form {
     justify-content: flex-start;
     align-items: center;
     gap: 4px;
+
+    .errormsg {
+        display: contents;
+    }
 }

@@ -1,21 +1,30 @@
 <div class="bg-image"></div>
 <div class="main-container">
-    <form>
+    <form [formGroup]="form" (ngSubmit)="login()">
         <h1>Log in</h1>
         <div class="inputfield-container">
             <div class="inputfield-content">
-                <input class="inputfield" type="text" placeholder="Email Address">
+                <input class="inputfield" type="email" placeholder="Email Address" formControlName="email">
                 <img class="icon i-icon" src="/assets/img/icons/mail.svg" alt="Email Address Field">
+                <div class="error-field" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+                    <img src="/assets/img/icons/warning.svg" alt="Exception">
+                    <p class="errormsg">Invalid email format.</p>
+                </div>
             </div>
             <div class="inputfield-content">
-                <input class="inputfield inputfield-pw" type="password" placeholder="Password">
+                <input #passwordInput class="inputfield inputfield-pw" type="password" placeholder="Password"
+                    formControlName="password">
                 <img class="icon i-icon" src="/assets/img/icons/password.svg" alt="Password Field">
-                <img class="icon pw-icon" src="/assets/img/icons/visibility.svg" alt="Password Visibility On">
-                <img class="icon pw-icon" src="/assets/img/icons/visibility_off.svg" alt="Password Visibility Off">
+                <img class="icon pw-icon" src="/assets/img/icons/visibility_off.svg" alt="Password Visibility Off"
+                    #passwordImg (click)="togglePassword(passwordInput, passwordImg)">
+                <div class="error-field" *ngIf="form.invalid && submitted">
+                    <img src="/assets/img/icons/warning.svg" alt="Exception">
+                    <p class="errormsg">Invalid email or password.</p>
+                </div>
             </div>
         </div>
         <div class="form-button-section">
-            <button routerLink="/dashboard">
+            <button type="submit">
                 <p class="weight-700">Log in</p>
             </button>
             <a routerLink="/forget-pw">Forgot password?</a>

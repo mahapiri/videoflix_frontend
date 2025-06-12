@@ -278,6 +278,16 @@ input {
     &.invalidInput {
         border-color: var(--error-red);
     }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 1000px var(--text-field-bg) inset;
+        box-shadow: 0 0 0 1000px var(--text-field-bg) inset;
+        -webkit-text-fill-color: var(--white);
+        transition: background-color 100ms ease-in-out 0s;
+    }
 }
 
 button {
