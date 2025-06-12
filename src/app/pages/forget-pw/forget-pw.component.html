@@ -1,13 +1,18 @@
 <div class="bg-image"></div>
 <div class="main-container">
-    <form>
+    <form [formGroup]="form" (ngSubmit)="sendEmail()">
         <h1>Forgot your password?</h1>
         <p>We will send you an email with instructions to reset your password.</p>
         <div class="inputfield-container">
-            <input class="inputfield" type="text" placeholder="Email Address">
+            <input class="inputfield" type="text" placeholder="Email Address" formControlName="email"
+                [class.invalidInput]="form.invalid && form.get('email')?.touched">
             <img class="icon i-icon" src="/assets/img/icons/mail.svg" alt="Email Address Field">
+            <div class="error-field" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+                <img src="/assets/img/icons/warning.svg" alt="Exception">
+                <p class="errormsg">Invalid email format.</p>
+            </div>
         </div>
-        <button disabled>
+        <button type="submit" [disabled]="form.invalid">
             <p class="weight-700">Send Email</p>
         </button>
     </form>

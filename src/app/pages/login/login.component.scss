@@ -30,6 +30,7 @@ form {
     flex-direction: column;
     gap: 32px;
     position: relative;
+    margin-bottom: 16px;
 
     .inputfield-content {
         position: relative;
@@ -51,7 +52,6 @@ form {
             }
         }
     }
-
 }
 
 .inputfield {

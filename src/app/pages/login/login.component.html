@@ -4,7 +4,9 @@
         <h1>Log in</h1>
         <div class="inputfield-container">
             <div class="inputfield-content">
-                <input class="inputfield" type="email" placeholder="Email Address" formControlName="email">
+                <input class="inputfield" type="email" placeholder="Email Address" formControlName="email"
+                    (input)="resetSubmitted()"
+                    [class.invalidInput]="(form.get('email')?.invalid && form.get('email')?.touched) || (form.invalid && submitted)">
                 <img class="icon i-icon" src="/assets/img/icons/mail.svg" alt="Email Address Field">
                 <div class="error-field" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
                     <img src="/assets/img/icons/warning.svg" alt="Exception">
@@ -13,7 +15,10 @@
             </div>
             <div class="inputfield-content">
                 <input #passwordInput class="inputfield inputfield-pw" type="password" placeholder="Password"
-                    formControlName="password">
+                    formControlName="password" (focus)="passwordOnFocus(passwordInput, passwordImg)"
+                    (blur)="passwordNotOnFocus(passwordInput, passwordImg)"
+                    (input)="updateIcon(passwordInput, passwordImg)"
+                    [class.invalidInput]="(form.invalid && submitted)">
                 <img class="icon i-icon" src="/assets/img/icons/password.svg" alt="Password Field">
                 <img class="icon pw-icon" src="/assets/img/icons/visibility_off.svg" alt="Password Visibility Off"
                     #passwordImg (click)="togglePassword(passwordInput, passwordImg)">

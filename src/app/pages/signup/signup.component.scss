@@ -32,13 +32,29 @@ form {
     display: flex;
     flex-direction: column;
     gap: 32px;
-}
-
-.inputfield-content {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    margin-bottom: 16px;
+
+    .inputfield-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .error-field {
+            position: absolute;
+            top: 52px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 4px;
+            @include transition-75;
+
+            .errormsg {
+                display: contents;
+            }
+        }
+    }
 }
 
 .inputfield {
@@ -52,24 +68,26 @@ form {
 
 .i-icon {
     position: absolute;
-    top: 12px;
+    top: 13px;
     left: 24px;
     z-index: 1;
+    @include transition-100;
 }
 
 .pw-icon {
+    width: 28px;
+    height: 28px;
     position: absolute;
-    top: 12px;
+    top: 10px;
     right: 24px;
-}
+    z-index: 1;
+    @include transition-100;
+    border-radius: 20px;
+    background-color: transparent;
+    padding: 4px;
+    cursor: pointer;
 
-.error-field {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 4px;
-
-    .errormsg {
-        display: contents;
+    &:hover {
+        background-color: var(--txt-gray);
     }
 }

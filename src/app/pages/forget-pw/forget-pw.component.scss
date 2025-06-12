@@ -12,7 +12,8 @@
     align-items: center;
     @include transition-100;
 
-    h1, p {
+    h1,
+    p {
         text-align: center;
     }
 }
@@ -27,6 +28,21 @@ form {
     padding: 43px 56px;
     background-color: var(--card-background);
     @include transition-100;
+
+    .error-field {
+        position: absolute;
+        top: 52px;
+        left: 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 4px;
+        @include transition-75;
+
+        .errormsg {
+            display: contents;
+        }
+    }
 }
 
 .inputfield-container {
@@ -34,6 +50,7 @@ form {
     flex-direction: column;
     gap: 16px;
     position: relative;
+    margin-bottom: 16px;
 }
 
 .inputfield {

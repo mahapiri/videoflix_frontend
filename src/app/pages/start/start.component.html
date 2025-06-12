@@ -4,13 +4,18 @@
         <h1>Movies, TV shows, and more</h1>
         <p>Enter your email to create or restart your subscription.</p>
     </div>
-    <div class="signup-form">
-        <input class="inputfield" type="text" placeholder="Email Address">
-        <button>
+    <form class="signup-form" [formGroup]="form" (ngSubmit)="signup()">
+        <input class="inputfield" type="text" placeholder="Email Address" formControlName="email"
+            [class.invalidInput]="form.invalid && form.get('email')?.touched">
+        <button type="submit">
             <div class="btn-content">
                 <p class="weight-700">Sign Up</p>
                 <img class="icon" src="assets/img/icons/chevron_right.svg" alt="Chevron Right">
             </div>
         </button>
-    </div>
+        <div class="error-field" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+            <img src="/assets/img/icons/warning.svg" alt="Exception">
+            <p class="errormsg">Invalid email format.</p>
+        </div>
+    </form>
 </div>

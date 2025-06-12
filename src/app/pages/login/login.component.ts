@@ -34,7 +34,7 @@ export class LoginComponent {
 
   passwordNotOnFocus(inputElement: HTMLInputElement, imgElement: HTMLImageElement) {
     if (inputElement.value.length === 0) {
-      imgElement.src = '../../assets/img/login-signup/lock.svg';
+      imgElement.src = '/assets/img/icons/lock.svg';
     }
   }
 
@@ -53,6 +53,10 @@ export class LoginComponent {
       imgElement.src = '/assets/img/icons/visibility.svg';
       imgElement.alt = 'Password Visibility On';
     }
+  }
+
+  resetSubmitted() {
+    this.submitted = false;
   }
 
   login() {
