@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-error',
@@ -8,4 +9,17 @@ import { Component } from '@angular/core';
 })
 export class ErrorComponent {
 
+  constructor(
+    private apiService: ApiService,
+  ) {
+
+  }
+
+  close() {
+    this.apiService.setIsError(false);
+  }
+
+  sendApiRequest() {
+    
+  }
 }

@@ -1,4 +1,4 @@
-@use "../../styles.scss" as *;
+@use "../../../styles.scss" as *;
 
 .bg-image {
     @include bg-img(rgba(0, 0, 0, 0.8), -27.44%, rgba(0, 0, 0, 0.44), 44.23%, "assets/img/background/login.jpg");

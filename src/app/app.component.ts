@@ -6,6 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { SharedService } from './services/shared.service';
 import { ErrorComponent } from './error/error.component';
+import { ApiService } from './services/api.service';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,10 @@ export class AppComponent {
   title = 'videoflix_frontend';
 
   constructor(
-    public sharedService: SharedService
-  ) { }
+    public sharedService: SharedService,
+    public apiService: ApiService
+  ) { 
+    // this.apiService.setIsError(false);
+  }
 
 }

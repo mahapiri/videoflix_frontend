@@ -5,7 +5,9 @@
     <div class="content-container">
         <router-outlet></router-outlet>
     </div>
-    <app-error></app-error>
+    <div class="error-container" *ngIf="(apiService.isError$ | async)">
+        <app-error></app-error>
+    </div>
     <div class="footer-container" *ngIf="(sharedService.isFooter$ | async)">
         <app-footer></app-footer>
     </div>
