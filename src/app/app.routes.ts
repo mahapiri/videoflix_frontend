@@ -6,6 +6,7 @@ import { ForgetPwComponent } from './pages/forget-pw/forget-pw.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ImprintComponent } from './pages/imprint/imprint.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+import { ResetPwComponent } from './pages/reset-pw/reset-pw.component';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,10 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'reset-pw',
+        component: ResetPwComponent
     },
     {
         path: 'dashboard',

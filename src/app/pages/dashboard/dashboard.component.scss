@@ -2,8 +2,8 @@
 
 .main-container {
     position: relative;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    // overflow-x: hidden;
+    // overflow-y: hidden;
 }
 
 .video-background-wrapper {
@@ -13,7 +13,7 @@
     width: 100vw;
     height: 800px;
     z-index: -1;
-    overflow: hidden;
+    // overflow: hidden;
 
     .background-video {
         width: 100vw;

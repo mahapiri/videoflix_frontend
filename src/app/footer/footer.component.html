@@ -1,4 +1,4 @@
-<footer class="top-gradient-overlay" [class.d-flex-end]="(sharedService.isDashboard$ | async)">
+<footer class="top-gradient-overlay" [class.d-flex-end]="!(sharedService.isNavbar$ | async)">
     <div class="legal-containter">
         <a href="/privacy-policy">Privacy Policy</a>
         <a routerLink="/imprint">Legal Notice</a>

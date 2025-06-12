@@ -61,7 +61,8 @@
 body {
     width: 100%;
     height: 100vh;
-    overflow: hidden;
+    // overflow: hidden;
+    overflow-x: hidden;
     background: var(--black);
 }
 
@@ -80,7 +81,7 @@ body {
 
 :root {
     --primary: rgba(46, 62, 223, 1);
-    --secondary: rgba(46, 61, 223, 0.8);
+    --secondary: rgb(102, 0, 218);
     --third: rgba(123, 12, 254, 1);
     --inactive: rgba(94, 94, 94, 1);
     --card-background: rgba(27, 27, 34, 0.85);
@@ -136,6 +137,8 @@ h5 {
     line-height: 100%;
     letter-spacing: 0%;
     color: var(--white);
+    word-break: break-all;
+
 }
 
 h6 {
@@ -260,12 +263,12 @@ input {
     }
 
     &:active {
-        border-color: var(--secondary);
+        border-color: var(--primary);
     }
 
     &:focus,
     &:focus-visible {
-        border-color: var(--secondary);
+        border-color: var(--primary);
 
         &::placeholder {
             color: transparent;
@@ -282,6 +285,8 @@ button {
     height: 48px;
     border-radius: 40px;
     padding: 12px 24px;
+    display: flex;
+    align-items: center;
     gap: 10px;
     background-color: var(--primary);
     border: 1px solid var(--primary);

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { FooterComponent } from '../../footer/footer.component';
 import { SharedService } from '../../services/shared.service';
@@ -12,19 +12,25 @@ import { SharedService } from '../../services/shared.service';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private cdr: ChangeDetectorRef
   ) {
-    this.sharedService.setIsDashboard(true);
+    this.sharedService.setIsNavbar(false);
+    this.sharedService.setIsFooter(false);
   }
 
   ngOnInit(): void {
+  }
 
+  ngAfterViewInit(): void {
   }
 
   ngOnDestroy(): void {
-    this.sharedService.setIsDashboard(false);
+    this.sharedService.setIsNavbar(true);
+    this.sharedService.setIsFooter(true);
+    this.cdr.detectChanges();
   }
 }

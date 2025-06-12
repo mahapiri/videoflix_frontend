@@ -5,6 +5,7 @@ import { StartComponent } from './pages/start/start.component';
 import { FooterComponent } from './footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { SharedService } from './services/shared.service';
+import { ErrorComponent } from './error/error.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import { SharedService } from './services/shared.service';
     NavbarComponent,
     RouterOutlet,
     FooterComponent,
-    CommonModule
+    CommonModule,
+    ErrorComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

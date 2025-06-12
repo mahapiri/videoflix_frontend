@@ -1,0 +1,92 @@
+@use "../../styles.scss" as *;
+
+.main-container {
+    max-width: max-content;
+    height: 80px;
+    border-radius: 20px;
+    padding: 24px 32px 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    background-color: var(--primary);
+    margin: 0 96px;
+    position: fixed;
+    bottom: 84px;
+    left: 0;
+    z-index: 10;
+
+    .error-color {
+        min-width: 24px;
+        height: 80px;
+        background-color: red;
+        border-radius: 20px 0 0 20px ;
+    }
+}
+
+.error-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    h5 {
+        height: 48px;
+        display: flex;
+        align-items: center;
+        overflow-y: scroll;
+    }
+
+    img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .error-btn {
+        background-color: var(--white);
+        border-color: var(--white);
+
+        p {
+            color: var(--primary);
+        }
+
+        &:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+
+            p {
+                color: var(--white);
+            }
+        }
+
+        &:active {
+            color: var(--white);
+            background-color: var(--third);
+            border-color: var(--third);
+        }
+    }
+}
+
+.close-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .divider {
+        height: 32px;
+        border: 1px solid var(--white);
+    }
+
+
+    .close-icon {
+        cursor: pointer;
+        @include transition-75;
+
+        &:hover {
+            stroke: var(--secondary);
+
+            path {
+                fill: var(--secondary);
+            }
+        }
+    }
+}

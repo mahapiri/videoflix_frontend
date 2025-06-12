@@ -8,10 +8,25 @@ export class SharedService {
 
   constructor() { }
 
-  private _isDashboardSubject = new BehaviorSubject<boolean>(false);
-  isDashboard$ = this._isDashboardSubject.asObservable();
+  private _isNavbarSubject = new BehaviorSubject<boolean>(true);
+  isNavbar$ = this._isNavbarSubject.asObservable();
 
-  setIsDashboard(status: boolean) {
-    this._isDashboardSubject.next(status)
+  private _isFooterSubject = new BehaviorSubject<boolean>(true);
+  isFooter$ = this._isFooterSubject.asObservable();
+
+  private _isPrivacySubject = new BehaviorSubject<boolean>(false);
+  isPrivacy$ = this._isPrivacySubject.asObservable();
+
+  setIsNavbar(status: boolean) {
+    this._isNavbarSubject.next(status)
   }
+
+  setIsFooter(status: boolean) {
+    this._isFooterSubject.next(status)
+  }
+
+  setIsPrivacy(status: boolean) {
+    this._isPrivacySubject.next(status)
+  }
+
 }

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SharedService } from '../services/shared.service';
@@ -15,6 +15,11 @@ import { SharedService } from '../services/shared.service';
 export class NavbarComponent {
 
   constructor(
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private location: Location
   ) { }
+
+  back() {
+    this.location.back();
+  }
 }

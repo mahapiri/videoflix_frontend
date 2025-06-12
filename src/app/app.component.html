@@ -1,11 +1,12 @@
 <div class="main-container">
-    <div class="navbar-container" *ngIf="!(sharedService.isDashboard$ | async)">
+    <div class="navbar-container" *ngIf="(sharedService.isNavbar$ | async)">
         <app-navbar></app-navbar>
     </div>
     <div class="content-container">
         <router-outlet></router-outlet>
     </div>
-    <div class="footer-container" *ngIf="!(sharedService.isDashboard$ | async)">
+    <app-error></app-error>
+    <div class="footer-container" *ngIf="(sharedService.isFooter$ | async)">
         <app-footer></app-footer>
     </div>
 </div>
