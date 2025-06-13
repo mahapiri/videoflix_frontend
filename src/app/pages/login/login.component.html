@@ -5,10 +5,10 @@
         <div class="inputfield-container">
             <div class="inputfield-content">
                 <input class="inputfield" type="email" placeholder="Email Address" formControlName="email"
-                    (input)="resetSubmitted()"
-                    [class.invalidInput]="(form.get('email')?.invalid && form.get('email')?.touched) || (form.invalid && submitted)">
+                    (input)="resetForm()" (focus)="resetForm()"
+                    [class.invalidInput]="hasEmailError()">
                 <img class="icon i-icon" src="/assets/img/icons/mail.svg" alt="Email Address Field">
-                <div class="error-field" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+                <div class="error-field" *ngIf="showEmailFormatError()">
                     <img src="/assets/img/icons/warning.svg" alt="Exception">
                     <p class="errormsg">Invalid email format.</p>
                 </div>
@@ -18,18 +18,18 @@
                     formControlName="password" (focus)="passwordOnFocus(passwordInput, passwordImg)"
                     (blur)="passwordNotOnFocus(passwordInput, passwordImg)"
                     (input)="updateIcon(passwordInput, passwordImg)"
-                    [class.invalidInput]="(form.invalid && submitted)">
+                    [class.invalidInput]="hasPasswordError()">
                 <img class="icon i-icon" src="/assets/img/icons/password.svg" alt="Password Field">
                 <img class="icon pw-icon" src="/assets/img/icons/visibility_off.svg" alt="Password Visibility Off"
                     #passwordImg (click)="togglePassword(passwordInput, passwordImg)">
-                <div class="error-field" *ngIf="form.invalid && submitted">
+                <div class="error-field" *ngIf="showLoginError()">
                     <img src="/assets/img/icons/warning.svg" alt="Exception">
                     <p class="errormsg">Invalid email or password.</p>
                 </div>
             </div>
         </div>
         <div class="form-button-section">
-            <button type="submit">
+            <button type="submit" [disabled]="form.invalid">
                 <p class="weight-700">Log in</p>
             </button>
             <a routerLink="/forget-pw">Forgot password?</a>

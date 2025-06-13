@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { EmailValidator, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ValidationService } from '../../services/validation.service';
 
 @Component({
   selector: 'app-login',
@@ -17,12 +18,14 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   form: FormGroup;
   submitted: boolean = false;
+  loginFailed: boolean = false;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private validate: ValidationService
   ) {
     this.form = this.fb.group({
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, this.validate.validateEmail]),
       password: new FormControl('', [Validators.required])
     })
   }
@@ -53,13 +56,48 @@ export class LoginComponent {
       imgElement.src = '/assets/img/icons/visibility.svg';
       imgElement.alt = 'Password Visibility On';
     }
+    this.resetForm();
   }
 
-  resetSubmitted() {
-    this.submitted = false;
+  
+  resetForm() {
+    this.loginFailed = false;
   }
+
 
   login() {
-    this.submitted = true
+    console.log("klick")
+    this.submitted = true;
+    if (this.form.valid) {
+      const email = this.form.get('email')?.value;
+      const password = this.form.get('password')?.value;
+      console.log("API: Send Login");
+      this.loginFailed = true;
+    }
+  }
+
+
+  hasEmailError() {
+    const email = this.form.get('email');
+    return (email?.invalid && email?.touched) ||
+      (this.submitted && this.loginFailed);
+  }
+
+
+  hasPasswordError() {
+    const password = this.form.get('password');
+    return (password?.invalid && password?.touched) ||
+      (this.submitted && this.loginFailed);
+  }
+
+
+  showEmailFormatError() {
+    const email = this.form.get('email');
+    return email?.invalid && email?.touched && !this.loginFailed;
+  }
+
+
+  showLoginError() {
+    return this.submitted && this.loginFailed;
   }
 }
