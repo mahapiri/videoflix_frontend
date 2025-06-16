@@ -6,14 +6,15 @@
     </div>
     <form class="signup-form" [formGroup]="form" (ngSubmit)="signup()">
         <input class="inputfield" type="text" placeholder="Email Address" formControlName="email"
-            [class.invalidInput]="form.invalid && form.get('email')?.touched">
-        <button type="submit">
+            (focus)="resetIsSubmitted()"
+            [class.invalidInput]="form.invalid && form.get('email')?.touched && submitted">
+        <button type="submit" [disabled]="(form.get('email')?.value.length < 1 && !loading) || loading">
             <div class="btn-content">
                 <p class="weight-700">Sign Up</p>
                 <img class="icon" src="assets/img/icons/chevron_right.svg" alt="Chevron Right">
             </div>
         </button>
-        <div class="error-field" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+        <div class="error-field" *ngIf="form.get('email')?.invalid && form.get('email')?.touched && submitted">
             <img src="/assets/img/icons/warning.svg" alt="Exception">
             <p class="errormsg">Invalid email format.</p>
         </div>

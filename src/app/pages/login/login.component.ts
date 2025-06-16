@@ -86,8 +86,7 @@ export class LoginComponent {
 
   hasPasswordError() {
     const password = this.form.get('password');
-    return (password?.invalid && password?.touched) ||
-      (this.submitted && this.loginFailed);
+    return this.submitted && this.loginFailed;
   }
 
 
