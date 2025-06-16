@@ -30,7 +30,8 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/video.js/dist/video-js.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -92,7 +93,8 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/video.js/dist/video-js.css"
             ],
             "scripts": []
           }

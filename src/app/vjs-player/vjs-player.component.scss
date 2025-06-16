@@ -1,0 +1,30 @@
+:host {
+    display: block;
+    width: 100%;
+    height: 800px;
+}
+
+.video-js {
+    position: absolute;
+    width: 100% !important;
+    height: 800px !important;
+
+    .vjs-tech {
+        width: 100%;
+        height: 800px;
+        object-fit: cover;
+        object-position: center top;
+    }
+
+    .vjs-poster {
+        background-size: cover !important;
+        background-position: center center !important;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+    }
+}

@@ -1,10 +1,16 @@
 <div class="main-container">
     <app-navbar></app-navbar>
     <div class="video-background-wrapper">
-        <video class="background-video" preload="metadata" poster="assets/video/thumbnail/thumbnail.jpg">
-            <source src="/assets/video/thumbnail/escape.mp4" type="video/mp4">
-            Video not supported.
-        </video>
+        <app-vjs-player #videoPlayer class="background-video" [options]="{
+                fill: true, 
+                loop: true, 
+                autoplay: true, 
+                muted: true,
+                controls: false, 
+                poster: '/assets/video/thumbnail/thumbnail.jpg',
+                sources: [{ src: '/assets/video/thumbnail/escape.mp4', type: 'video/mp4' }]
+                }">
+        </app-vjs-player>
         <div class="background-overlay"></div>
     </div>
     <div class="page-content">
@@ -15,7 +21,7 @@
                 his innocence. He must navigate a web of alliances and betrayals to reclaim his freedom and expose the
                 truth.
             </p>
-            <button>
+            <button (click)="playVideo()">
                 <img src="/assets/img/icons/play_arrow.svg" alt="Play Video">
                 <p>Play</p>
             </button>

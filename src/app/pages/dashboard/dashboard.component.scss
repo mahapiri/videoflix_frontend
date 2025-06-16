@@ -10,6 +10,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    display: block;
     width: 100vw;
     height: 800px;
     z-index: -1;
@@ -45,7 +46,7 @@
     @include transition-100;
     padding: 66px 0 0 96px;
     position: relative;
-    top: 24px;
+    top: 176px;
 }
 
 .video-details {
@@ -54,6 +55,8 @@
     flex-direction: column;
     gap: 32px;
     margin-bottom: 100px;
+    position: relative;
+    top: -100px;
 
     p {
         font-size: 16px;

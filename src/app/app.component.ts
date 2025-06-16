@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
-import { StartComponent } from './pages/start/start.component';
 import { FooterComponent } from './footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { SharedService } from './services/shared.service';
@@ -23,11 +22,10 @@ import { ApiService } from './services/api.service';
 export class AppComponent {
   title = 'videoflix_frontend';
 
+  
   constructor(
     public sharedService: SharedService,
     public apiService: ApiService
-  ) { 
-    // this.apiService.setIsError(false);
-  }
+  ) { }
 
 }
