@@ -18,6 +18,7 @@ import { ValidationService } from '../../services/validation.service';
 export class LoginComponent {
   form: FormGroup;
   submitted: boolean = false;
+  loading: boolean = false;
   loginFailed: boolean = false;
 
   constructor(
@@ -59,44 +60,50 @@ export class LoginComponent {
     this.resetForm();
   }
 
-  
+
   resetForm() {
+    this.submitted = false;
     this.loginFailed = false;
   }
 
 
   login() {
-    console.log("klick")
     this.submitted = true;
     if (this.form.valid) {
+      this.loading = true;
       const email = this.form.get('email')?.value;
       const password = this.form.get('password')?.value;
       console.log("API: Send Login");
-      this.loginFailed = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 2000); // if response successed
+      setTimeout(() => {
+        this.loginFailed = true;
+      }, 3000);  // if response failed
     }
   }
 
 
   hasEmailError() {
     const email = this.form.get('email');
-    return (email?.invalid && email?.touched) ||
-      (this.submitted && this.loginFailed);
+    return email?.invalid && email?.touched && this.submitted
   }
 
 
   hasPasswordError() {
     const password = this.form.get('password');
-    return this.submitted && this.loginFailed;
-  }
-
-
-  showEmailFormatError() {
-    const email = this.form.get('email');
-    return email?.invalid && email?.touched && !this.loginFailed;
+    return password?.invalid && password?.touched && this.submitted
   }
 
 
   showLoginError() {
     return this.submitted && this.loginFailed;
+  }
+
+
+  proofDisableBtn(): boolean {
+    const password = this.form.get('password')?.value || '';
+    const email = this.form.get('email')?.value || '';
+    return this.loading || (password.length < 1 || email.length < 1);
   }
 }

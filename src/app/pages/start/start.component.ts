@@ -38,7 +38,9 @@ export class StartComponent {
       this.loading = true;
       const email = this.form.get('email')?.value;
       console.log("API: SIGNUP")
-      // this.loading = false;   //sobald ausgeführt
+      setTimeout(() => {
+        this.loading = false;
+      }, 2000); // if response successed
     }
   }
 }

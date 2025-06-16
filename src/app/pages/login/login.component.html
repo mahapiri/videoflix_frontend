@@ -6,9 +6,9 @@
             <div class="inputfield-content">
                 <input class="inputfield" type="email" placeholder="Email Address" formControlName="email"
                     (input)="resetForm()" (focus)="resetForm()"
-                    [class.invalidInput]="hasEmailError()">
+                    [class.invalidInput]="hasEmailError() || showLoginError()">
                 <img class="icon i-icon" src="/assets/img/icons/mail.svg" alt="Email Address Field">
-                <div class="error-field" *ngIf="showEmailFormatError()">
+                <div class="error-field" *ngIf="hasEmailError()">
                     <img src="/assets/img/icons/warning.svg" alt="Exception">
                     <p class="errormsg">Invalid email format.</p>
                 </div>
@@ -18,7 +18,7 @@
                     formControlName="password" (focus)="passwordOnFocus(passwordInput, passwordImg)"
                     (blur)="passwordNotOnFocus(passwordInput, passwordImg)"
                     (input)="updateIcon(passwordInput, passwordImg)"
-                    [class.invalidInput]="hasPasswordError()">
+                    [class.invalidInput]="hasPasswordError() || showLoginError()">
                 <img class="icon i-icon" src="/assets/img/icons/password.svg" alt="Password Field">
                 <img class="icon pw-icon" src="/assets/img/icons/visibility_off.svg" alt="Password Visibility Off"
                     #passwordImg (click)="togglePassword(passwordInput, passwordImg)">
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="form-button-section">
-            <button type="submit" [disabled]="form.invalid">
+            <button type="submit" [disabled]="proofDisableBtn()">
                 <p class="weight-700">Log in</p>
             </button>
             <a routerLink="/forget-pw">Forgot password?</a>
