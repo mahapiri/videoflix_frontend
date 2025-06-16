@@ -15,7 +15,8 @@
             </div>
             <div class="inputfield-content">
                 <input #passwordInput class="inputfield inputfield-pw" type="password" placeholder="Password"
-                    formControlName="password" (focus)="passwordOnFocus(passwordInput, passwordImg)"
+                    formControlName="password" 
+                    (focus)="passwordOnFocus(passwordInput, passwordImg)"
                     (blur)="passwordNotOnFocus(passwordInput, passwordImg)"
                     (input)="updateIcon(passwordInput, passwordImg)"
                     [class.invalidInput]="hasPasswordError() || showLoginError()">

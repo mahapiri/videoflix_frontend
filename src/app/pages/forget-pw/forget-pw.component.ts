@@ -16,6 +16,8 @@ import { ValidationService } from '../../services/validation.service';
 export class ForgetPwComponent {
   form: FormGroup;
   submitted: boolean = false;
+  loading: boolean = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -26,29 +28,37 @@ export class ForgetPwComponent {
     })
   }
 
+
   resetForm() {
-    this.form.get('email')?.markAsUntouched();
-    if (this.form.get('email')?.value.length == 0) {
-      this.submitted = false;
-    }
+    this.submitted = false;
   }
+
 
   sendEmail() {
-    console.log("klick")
     this.submitted = true;
-
     if (this.form.valid) {
+      this.loading = true;
       const email = this.form.get('email')?.value;
       console.log("API: Send Email")
-      this.form.reset() // sobald erfolgreich
-      this.submitted = false;
+      setTimeout(() => {
+        this.loading = false;
+        this.form.reset();
+        this.submitted = false;
+      }, 2000); // if response successed
     }
   }
 
+
   hasEmailError() {
-    return this.form.get('email')?.invalid && 
-           this.form.get('email')?.touched && 
-           this.form.get('email')?.value.length > 0 && 
-           this.submitted
+    return this.form.get('email')?.invalid &&
+      this.form.get('email')?.touched &&
+      this.form.get('email')?.value.length > 0 &&
+      this.submitted
+  }
+
+
+  proofDisableBtn(): boolean {
+    const email = this.form.get('email')?.value || '';
+    return this.loading || email.length < 1;
   }
 }

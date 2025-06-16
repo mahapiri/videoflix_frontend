@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ValidationService } from '../../services/validation.service';
 
 @Component({
   selector: 'app-reset-pw',
@@ -15,15 +16,22 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 export class ResetPwComponent {
   form: FormGroup;
   submitted: boolean = false;
+  loading: boolean = false;
+  resetFailed: boolean = false;
+
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private validate: ValidationService
   ) {
     this.form = this.fb.group({
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, this.validate.validatePassword]),
       confirmPassword: new FormControl('', [Validators.required]),
+    }, {
+      validators: this.validate.passwordMatchValidator()
     })
   }
+
 
   passwordOnFocus(inputElement: HTMLInputElement, imgElement: HTMLImageElement) {
     this.updateIcon(inputElement, imgElement);
@@ -50,10 +58,54 @@ export class ResetPwComponent {
     } else {
       imgElement.src = '/assets/img/icons/visibility.svg';
       imgElement.alt = 'Password Visibility On';
+    };
+    this.resetForm();
+  }
+
+
+  resetForm() {
+    this.submitted = false;
+    this.resetFailed = false;
+  }
+
+  
+  resetPW() {
+    this.submitted = true;
+    if (this.form.valid) {
+      this.loading = true;
+      const password = this.form.get('password')?.value;
+      console.log("API: Reset PW");
+      setTimeout(() => {
+        this.loading = false;
+        this.form.reset();
+        this.submitted = false;
+      }, 2000); // if response successed
+      setTimeout(() => {
+        this.resetFailed = true;
+      }, 3000);  // if response failed
     }
   }
 
-  resetPW() {
-    this.submitted = true;
+
+  hasPasswordError() {
+    const password = this.form.get('password');
+    return password?.invalid && password?.touched && this.submitted
+  }
+
+
+  hasPasswordMatchError() {
+    return (this.form.hasError('passwordMismatch') && this.form.get('confirmPassword')?.touched)
+  }
+
+
+  showResetPWError() {
+    return this.submitted && this.resetFailed;
+  }
+
+
+  proofDisableBtn(): boolean {
+    const password = this.form.get('password')?.value || '';
+    const confirmPassword = this.form.get('confirmPassword')?.value || '';
+    return this.loading || (password.length < 1 || confirmPassword.length < 1);
   }
 }

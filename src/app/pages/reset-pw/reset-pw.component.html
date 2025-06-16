@@ -7,31 +7,37 @@
             <div class="inputfield-content">
                 <input #passwordInput class="inputfield inputfield-pw" formControlName="password" type="password"
                     placeholder="Enter a password"
-                    [class.invalidInput]="form.hasError('passwordMismatch') && form.get('confirmPassword')?.touched"
+                    [class.invalidInput]="hasPasswordError() || showResetPWError() || (hasPasswordMatchError() && submitted)"
                     (focus)="passwordOnFocus(passwordInput, passwordImg)"
                     (blur)="passwordNotOnFocus(passwordInput, passwordImg)"
                     (input)="updateIcon(passwordInput, passwordImg)">
-                <img #passwordImg class="icon pw-icon" src="assets/img/icons/visibility_off.svg" alt="Password"
-                    (click)="togglePassword(passwordInput, passwordImg)">
                 <img class="icon i-icon" src="/assets/img/icons/password.svg" alt="Password Field">
+                <img #passwordImg class="icon pw-icon" src="assets/img/icons/visibility_off.svg"
+                    alt="Password Visibility Off" (click)="togglePassword(passwordInput, passwordImg)">
             </div>
             <div class="inputfield-content">
                 <input #confirmPasswordInput class="inputfield inputfield-pw" formControlName="confirmPassword"
                     type="password" placeholder="Confirm Password"
-                    [class.invalidInput]="form.hasError('passwordMismatch') && form.get('confirmPassword')?.touched"
+                    [class.invalidInput]="hasPasswordMatchError() && submitted || (!hasPasswordMatchError() && hasPasswordError())"
                     (focus)="passwordOnFocus(confirmPasswordInput, confirmPasswordImg)"
                     (blur)="passwordNotOnFocus(confirmPasswordInput, confirmPasswordImg)"
                     (input)="updateIcon(confirmPasswordInput, confirmPasswordImg)">
                 <img class="icon i-icon" src="/assets/img/icons/password.svg" alt="Password Field">
-                <img #confirmPasswordImg class="icon pw-icon" src="assets/img/icons/visibility_off.svg" alt="Password"
-                    (click)="togglePassword(confirmPasswordInput, confirmPasswordImg)">
-                <div class="error-field" *ngIf="form.hasError('passwordMismatch') && form.get('confirmPassword')?.touched">
+                <img #confirmPasswordImg class="icon pw-icon" src="assets/img/icons/visibility_off.svg"
+                    alt="Password Visibility Off" (click)="togglePassword(confirmPasswordInput, confirmPasswordImg)">
+                <div class="error-field"
+                    *ngIf="(hasPasswordMatchError() && submitted) || (!hasPasswordMatchError() && hasPasswordError())">
                     <img src="/assets/img/icons/warning.svg" alt="Exception">
-                    <p class="errormsg">Passwords must match</p>
+                    <p class="errormsg" *ngIf="hasPasswordMatchError() && submitted">
+                        Passwords must match
+                    </p>
+                    <p class="errormsg" *ngIf="!hasPasswordMatchError() && hasPasswordError()">
+                        Password must be at least 8 characters long and contain at least one special character.
+                    </p>
                 </div>
             </div>
         </div>
-        <button type="submit" [disabled]="form.invalid && !submitted">
+        <button type="submit" [disabled]="proofDisableBtn()">
             <p class="weight-700">Reset my password</p>
         </button>
     </form>

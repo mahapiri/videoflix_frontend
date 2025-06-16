@@ -21,6 +21,7 @@ export class LoginComponent {
   loading: boolean = false;
   loginFailed: boolean = false;
 
+
   constructor(
     private fb: FormBuilder,
     private validate: ValidationService
@@ -30,6 +31,7 @@ export class LoginComponent {
       password: new FormControl('', [Validators.required])
     })
   }
+
 
   passwordOnFocus(inputElement: HTMLInputElement, imgElement: HTMLImageElement) {
     this.updateIcon(inputElement, imgElement);
@@ -76,8 +78,11 @@ export class LoginComponent {
       console.log("API: Send Login");
       setTimeout(() => {
         this.loading = false;
+        this.form.reset();
+        this.submitted = false;
       }, 2000); // if response successed
       setTimeout(() => {
+        this.submitted = true; // test
         this.loginFailed = true;
       }, 3000);  // if response failed
     }
