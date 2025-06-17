@@ -17,6 +17,9 @@ export class SharedService {
   private _isPrivacySubject = new BehaviorSubject<boolean>(false);
   isPrivacy$ = this._isPrivacySubject.asObservable();
 
+  private _isFullscreenSubject = new BehaviorSubject<boolean>(false);
+  _isFullscreen$ = this._isFullscreenSubject.asObservable();
+
   setIsNavbar(status: boolean) {
     this._isNavbarSubject.next(status)
   }
@@ -27,6 +30,10 @@ export class SharedService {
 
   setIsPrivacy(status: boolean) {
     this._isPrivacySubject.next(status)
+  }
+
+  setIsFullscreen(status: boolean) {
+    this._isFullscreenSubject.next(status)
   }
 
 }

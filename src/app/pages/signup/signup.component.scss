@@ -2,8 +2,8 @@
 
 .bg-image {
     @include bg-img(rgba(0, 0, 0, 0.8), -27.44%, rgba(0, 0, 0, 0.44), 44.23%, "assets/img/background/signup.jpg");
-    background-size: 175%;
-    background-position: 80% 15%;
+    // background-size: 175%;
+    // background-position: 80% 15%;
     background-repeat: no-repeat;
 }
 

@@ -1,7 +1,7 @@
 <div class="main-container">
     <app-navbar></app-navbar>
     <div class="video-background-wrapper">
-        <app-vjs-player #videoPlayer class="background-video" [options]="{
+        <!-- <app-vjs-player #videoPlayer class="background-video" [options]="{
                 fill: true, 
                 loop: true, 
                 autoplay: true, 
@@ -10,7 +10,11 @@
                 poster: '/assets/video/thumbnail/thumbnail.jpg',
                 sources: [{ src: '/assets/video/thumbnail/escape.mp4', type: 'video/mp4' }]
                 }">
-        </app-vjs-player>
+        </app-vjs-player> -->
+        <video class="background-video" id="video" preload="metadata" poster="assets/video/thumbnail/thumbnail.jpg" autoplay loop muted>
+            <source src="/assets/video/thumbnail/escape.mp4" type="video/mp4">
+            Video not supported.
+        </video>
         <div class="background-overlay"></div>
     </div>
     <div class="page-content">

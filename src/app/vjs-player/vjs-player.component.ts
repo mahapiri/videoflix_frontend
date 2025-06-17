@@ -1,23 +1,24 @@
-import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CommonModule, isPlatformBrowser, Location } from '@angular/common';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import videojs from 'video.js';
 import Player from 'video.js/dist/types/player';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-vjs-player',
-  imports: [],
+  imports: [
+    CommonModule
+  ],
   templateUrl: './vjs-player.component.html',
   styleUrls: ['./vjs-player.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class VjsPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('target', { static: false }) target!: ElementRef<HTMLVideoElement>;
+export class VjsPlayerComponent implements OnInit, OnDestroy {
+  @ViewChild('target', { static: true }) target!: ElementRef<HTMLVideoElement>;
 
-  // See options: https://videojs.com/guides/options
   @Input() options?: {
-    // fluid: boolean,
     fill: boolean
-    // aspectRatio: string,
     loop: boolean,
     controls: boolean,
     autoplay: boolean,
@@ -31,14 +32,21 @@ export class VjsPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   player?: Player;
 
-  
   constructor(
     private elementRef: ElementRef,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router,
+    private _location: Location,
+    public sharedService: SharedService
   ) { }
 
 
   ngAfterViewInit(): void {
+
+  }
+
+
+  ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
         if (this.target && this.target.nativeElement) {
@@ -55,11 +63,6 @@ export class VjsPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-  ngOnInit() {
-
-  }
-
-
   ngOnDestroy() {
     if (this.player) {
       this.player.dispose();
@@ -67,9 +70,13 @@ export class VjsPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-  enterFullscreen() {
-    if(this.player) {
-      this.player.requestFullscreen();
-    }
+  backToDashboard() {
+    this.router.navigate(['/dashboard']);
+    // this.sharedService.setIsFullscreen(false);
+  }
+
+  back() {
+    this._location.back();
+    // this.sharedService.setIsFullscreen(false);
   }
 }

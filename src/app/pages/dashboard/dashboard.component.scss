@@ -2,28 +2,22 @@
 
 .main-container {
     position: relative;
-    // overflow-x: hidden;
-    // overflow-y: hidden;
 }
 
 .video-background-wrapper {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: -1;
     display: block;
     width: 100vw;
-    height: 800px;
-    z-index: -1;
-    // overflow: hidden;
+    height: 756px;
 
     .background-video {
         width: 100vw;
-        height: 800px;
+        height: inherit;
         object-fit: cover;
         object-position: center;
-        // position: absolute;
-        // top: 0;
-        // left: 0;
     }
 
     .background-overlay {
@@ -31,7 +25,7 @@
         top: 0;
         left: 0;
         width: 100vw;
-        height: 800px;
+        height: inherit;
         background: linear-gradient(180deg, rgba(20, 20, 20, 0.6) 0%, rgba(20, 20, 20, 0) 50%, #141414 100%);
         z-index: 1;
     }
@@ -44,9 +38,10 @@
     flex-direction: column;
     gap: 40px;
     @include transition-100;
-    padding: 66px 0 0 96px;
+    padding: 0 0 0 96px;
     position: relative;
-    top: 176px;
+    top: 108px;
+    z-index: 1;
 }
 
 .video-details {
@@ -54,9 +49,7 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    margin-bottom: 100px;
-    position: relative;
-    top: -100px;
+    margin-bottom: 80px;
 
     p {
         font-size: 16px;
@@ -75,8 +68,6 @@
 }
 
 .section-new-videos {
-    // position: relative;
-    // top: 124px;
     display: flex;
     flex-direction: column;
     gap: 48px;
@@ -102,7 +93,7 @@
     }
 
     .thumbnail {
-        width: 213.13px;
+        width: 213px;
         height: 120px;
         cursor: pointer;
         flex: 0 0 auto;
@@ -116,17 +107,12 @@
 
     .right-gradient-overlay {
         position: absolute;
-        top: 0;
+        top: -4%;
         right: 0;
         width: 200px;
-        height: 100%;
+        height: 108%;
         background: linear-gradient(88.67deg, rgba(20, 20, 20, 0) 1.13%, #141414 48.04%);
         pointer-events: none;
         z-index: 10;
     }
 }
-
-// app-footer {
-//     position: relative;
-//     bottom: 100px;
-// }
