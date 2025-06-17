@@ -3,6 +3,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 import { FooterComponent } from '../../footer/footer.component';
 import { SharedService } from '../../services/shared.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,7 @@ import { CommonModule } from '@angular/common';
 })
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   lastScrollPosition: number = 0;
-  scrollThreshold: number = 300;
+  scrollThreshold: number = 30;
   video!: HTMLVideoElement;
   scrollHandler!: Function;
 
@@ -25,7 +26,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     public sharedService: SharedService,
     private cdr: ChangeDetectorRef,
     private elementRef: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router: Router
   ) {
     this.sharedService.setIsNavbar(false);
     this.sharedService.setIsFooter(false);
@@ -47,6 +49,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       this.handleScroll();
     })
   }
+
 
   private handleScroll(): void {
     const currentScrollPosition = window.scrollY || document.documentElement.scrollTop;
@@ -80,6 +83,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   playVideo() {
-    // this.sharedService.setIsFullscreen(true);
+    this.router.navigate(['/video-player']);
   }
 }

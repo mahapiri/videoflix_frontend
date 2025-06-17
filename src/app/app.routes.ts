@@ -7,6 +7,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { ImprintComponent } from './pages/imprint/imprint.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 import { ResetPwComponent } from './pages/reset-pw/reset-pw.component';
+import { VjsPlayerComponent } from './vjs-player/vjs-player.component';
 
 export const routes: Routes = [
     {
@@ -46,4 +47,8 @@ export const routes: Routes = [
         path: 'privacy-policy',
         component: PrivacyPolicyComponent
     },
+    {
+        path: 'video-player',
+        component: VjsPlayerComponent
+    }
 ];

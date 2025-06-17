@@ -38,7 +38,10 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     private router: Router,
     private _location: Location,
     public sharedService: SharedService
-  ) { }
+  ) {
+    this.sharedService.setIsNavbar(false);
+    this.sharedService.setIsFooter(false);
+  }
 
 
   ngAfterViewInit(): void {
