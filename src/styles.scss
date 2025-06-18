@@ -1,7 +1,7 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    // user-select: none;
+    user-select: none;
     scroll-behavior: smooth;
     color: var(--white);
 }
@@ -21,7 +21,7 @@
 
 @mixin card-box($width, $radius, $padding, $gap) {
     width: $width;
-    radius: $radius;
+    border-radius: $radius;
     padding: $padding;
     gap: $gap;
     background-color: var(--card-background);
@@ -91,6 +91,8 @@ body {
     --utility-white: rgba(211, 211, 211, 1);
     --text-field-bg: rgba(28, 26, 32, 0.8);
     --error-red: rgba(255, 0, 46, 1);
+    --p-line: rgba(181, 181, 181, 1);
+    --p-status: rgba(236, 236, 236, 1);
     --gradient-right: linear-gradient(88.67deg, rgba(20, 20, 20, 0) 1.13%, #141414 48.04%);
     --gradient-bottom: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 50%);
 }

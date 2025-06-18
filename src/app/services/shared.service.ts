@@ -18,7 +18,10 @@ export class SharedService {
   isPrivacy$ = this._isPrivacySubject.asObservable();
 
   private _isFullscreenSubject = new BehaviorSubject<boolean>(false);
-  _isFullscreen$ = this._isFullscreenSubject.asObservable();
+  isFullscreen$ = this._isFullscreenSubject.asObservable();
+
+  // private _videoSourceSubject = new BehaviorSubject<string>('');
+  // videoSource$ = this._videoSourceSubject.asObservable();
 
   setIsNavbar(status: boolean) {
     this._isNavbarSubject.next(status)
@@ -36,4 +39,7 @@ export class SharedService {
     this._isFullscreenSubject.next(status)
   }
 
+  // setVideoSource(source: string) {
+  //   this._videoSourceSubject.next(source);
+  // }
 }

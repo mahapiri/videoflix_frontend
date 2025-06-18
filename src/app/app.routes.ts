@@ -48,7 +48,7 @@ export const routes: Routes = [
         component: PrivacyPolicyComponent
     },
     {
-        path: 'video-player',
+        path: 'video-player/:path',
         component: VjsPlayerComponent
     }
 ];

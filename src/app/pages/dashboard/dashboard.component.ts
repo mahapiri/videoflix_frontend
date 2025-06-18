@@ -83,6 +83,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   playVideo() {
-    this.router.navigate(['/video-player']);
+    const path = 'escape.mp4';
+    this.router.navigate([`/video-player/${path}`]);
   }
 }
