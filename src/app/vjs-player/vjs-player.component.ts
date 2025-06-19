@@ -36,6 +36,8 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   videoSrc: string = '';
   isFullscreen: boolean = false;
   isPlayed: boolean = false;
+  isPlaybackrate: boolean = false;
+  playbackrates: number[] = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0];
 
 
   constructor(
@@ -50,11 +52,6 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   }
 
 
-  ngAfterViewInit(): void {
-
-  }
-
-
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.route.paramMap.subscribe(params => {
@@ -64,6 +61,10 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  
+  ngAfterViewInit(): void {
   }
 
 
@@ -129,8 +130,29 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   }
 
 
-  setSpeed() {
-    this.player?.playbackRate();
+  togglePlaybackrate(event: Event) {
+    event.stopPropagation();
+    this.isPlaybackrate = !this.isPlaybackrate;
+    if (this.isPlaybackrate) {
+      const currentRate = this.player?.playbackRate();
+      if (currentRate) {
+        this.setPlaybackrate(event, currentRate);
+      }
+    }
+  }
+
+
+  setPlaybackrate(event: Event, rate: number) {
+    event.stopPropagation();
+    setTimeout(() => {
+      const selectedElement = document.getElementById(`${rate}`);
+      const otherElements = document.querySelectorAll('.speed-btn.active');
+      otherElements.forEach(element => {
+        element.classList.remove('active')
+      });
+      selectedElement?.classList.add('active');
+    }, 0);
+    this.player?.playbackRate(rate);
   }
 
 
