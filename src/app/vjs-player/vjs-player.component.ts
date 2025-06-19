@@ -51,8 +51,9 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   mouseUpListener: any;
   isBrowser: boolean = false;
 
-
+  controlTimer: any;
   isControlElements: boolean = true;
+  isControlElementsFixed: boolean = false;
 
 
   constructor(
@@ -77,10 +78,12 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
       this.route.paramMap.subscribe(params => {
         const path = params.get('path');
         if (path) {
-          let initializedPlayer: any = this.setupVideoPlayer(path);
-          if (initializedPlayer) {
-            this.togglePlay();
-          }
+          this.setupVideoPlayer(path);
+          // if (initializedPlayer) {
+          //   console.log('klick')
+          //   this.player?.on('progress', this.updateBufferedTime.bind(this));
+          //   this.togglePlay();
+          // }
         }
       });
     }
@@ -120,7 +123,6 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     this.updateStatusPosition(event);
   }
 
-  private controlTimer: any;
 
   onMouseMove(event: MouseEvent) {
     this.isControlElements = true;
@@ -195,17 +197,17 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
             this.player.dispose();
           }
           this.player = videojs(this.target.nativeElement, playerOptions);
+
+          this.player.on('progress', this.updateBufferedTime.bind(this));
+          this.togglePlay();
           this.getCurrentTime();
-          this.getBufferedTime();
+          // this.updateBufferedTime();
           this.getDurationTime();
-          return true;
         } catch (error) {
           console.error('Error initializing vjs player:', error);
-          return false;
         }
       } else {
         console.error('Video element was not found!', this.target);
-        return false;
       }
     }, 100);
   }
@@ -234,15 +236,13 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   }
 
 
-  getBufferedTime() {
-    this.player?.on('progress', () => {
-      const bufferedRanges = this.player?.buffered();
+  updateBufferedTime() {
+    const bufferedRanges = this.player?.buffered();
+    if (bufferedRanges && bufferedRanges.length > 0) {
+      const bufferedEnd = bufferedRanges.end(bufferedRanges.length - 1);
+      this.setUploadStatus(bufferedEnd)
+    }
 
-      if (bufferedRanges && bufferedRanges.length > 0) {
-        const bufferedEnd = bufferedRanges.end(bufferedRanges.length - 1);
-        this.setUploadStatus(bufferedEnd)
-      }
-    });
   }
 
 
@@ -250,6 +250,7 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     let duration = this.player?.duration();
     if (duration && duration > 0) {
       this.uploadStatus = (bufferedEnd * 100) / duration;
+      console.log(this.uploadStatus)
     }
   }
 
@@ -273,6 +274,7 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.isReplay = true;
           this.isPlayed = false;
+          this.isControlElementsFixed = true;
         }, 500);
       }
     }
@@ -292,10 +294,10 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     this.status = 0;
     if (this.status == 0) {
       setTimeout(() => {
-
         this.isReplay = false;
         this.player?.play();
         this.isPlayed = true;
+        this.isControlElementsFixed = false;
       }, 200);
     }
   }
