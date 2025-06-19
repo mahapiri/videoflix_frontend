@@ -5,7 +5,7 @@
             <h5>Replay</h5>
         </div>
     </div>
-    <div class="header-container">
+    <div class="header-container" [class.animate]="isControlElements">
         <div class="back-container" (click)="back()">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -23,7 +23,7 @@
     <div style="width: 100%; height: 100%; cursor: pointer;" (click)="togglePlay()">
         <video #target class="video-js" playsinline preload="none"></video>
     </div>
-    <div class="control-container">
+    <div class="control-container" [class.animate]="isControlElements">
         <div class="progress-container">
             <div class="progress-content">
                 <div class="progress-line" #progressLine (mousedown)="startDrag($event)">

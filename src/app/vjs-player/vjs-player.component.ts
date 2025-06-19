@@ -52,6 +52,9 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   isBrowser: boolean = false;
 
 
+  isControlElements: boolean = true;
+
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
@@ -74,7 +77,10 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
       this.route.paramMap.subscribe(params => {
         const path = params.get('path');
         if (path) {
-          this.setupVideoPlayer(path);
+          let initializedPlayer: any = this.setupVideoPlayer(path);
+          if (initializedPlayer) {
+            this.togglePlay();
+          }
         }
       });
     }
@@ -114,8 +120,19 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     this.updateStatusPosition(event);
   }
 
+  private controlTimer: any;
 
   onMouseMove(event: MouseEvent) {
+    this.isControlElements = true;
+
+    if (this.controlTimer) {
+      clearTimeout(this.controlTimer);
+    }
+
+    this.controlTimer = setTimeout(() => {
+      this.isControlElements = false;
+    }, 2000);
+
     if (this.isDragging) {
       this.updateStatusPosition(event);
     }
@@ -181,11 +198,14 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
           this.getCurrentTime();
           this.getBufferedTime();
           this.getDurationTime();
+          return true;
         } catch (error) {
           console.error('Error initializing vjs player:', error);
+          return false;
         }
       } else {
         console.error('Video element was not found!', this.target);
+        return false;
       }
     }, 100);
   }
@@ -244,7 +264,7 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     })
   }
 
-  
+
   setStatus(currentTime: number) {
     let duration = this.player?.duration();
     if (duration && duration > 0) {
