@@ -1,16 +1,16 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { NavbarComponent } from '../../navbar/navbar.component';
-import { FooterComponent } from '../../footer/footer.component';
 import { SharedService } from '../../services/shared.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { FooterComponent } from '../../footer/footer.component';
 
 @Component({
   selector: 'app-dashboard',
   imports: [
     NavbarComponent,
-    FooterComponent,
-    CommonModule
+    CommonModule,
+    FooterComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
@@ -20,6 +20,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   scrollThreshold: number = 30;
   video!: HTMLVideoElement;
   scrollHandler!: Function;
+
+  isDragging = false;
+  startX = 0;
+  scrollLeft = 0;
+  currentRow: HTMLElement | null = null;
 
 
   constructor(
@@ -83,7 +88,49 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   playVideo() {
-    const path = 'escape.mp4';
-    this.router.navigate([`/video-player/${path}`]);
+    if (!this.isDragging) {
+      const path = 'escape.mp4';
+      this.router.navigate([`/video-player/${path}`]);
+    }
+  }
+
+  
+  mouseDown(event: MouseEvent): void {
+    const element = event.currentTarget as HTMLElement;
+    if (!element) return;
+
+    this.isDragging = true;
+    this.currentRow = element;
+    this.startX = event.pageX - element.offsetLeft;
+    this.scrollLeft = element.scrollLeft;
+    this.renderer.addClass(element, 'dragging');
+    event.preventDefault();
+  }
+
+
+  mouseMove(event: MouseEvent): void {
+    if (!this.isDragging || !this.currentRow) return;
+
+    const x = event.pageX - this.currentRow.offsetLeft;
+    const walk = (x - this.startX) * 1;
+    this.currentRow.scrollLeft = this.scrollLeft - walk;
+  }
+
+
+  mouseUp(): void {
+    if (this.currentRow) {
+      this.renderer.removeClass(this.currentRow, 'dragging');
+    }
+    this.isDragging = false;
+    this.currentRow = null;
+  }
+
+
+  mouseLeave(): void {
+    if (this.currentRow) {
+      this.renderer.removeClass(this.currentRow, 'dragging');
+    }
+    this.isDragging = false;
+    this.currentRow = null;
   }
 }
