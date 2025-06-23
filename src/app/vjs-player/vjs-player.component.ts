@@ -271,11 +271,12 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     if (duration && duration > 0) {
       this.status = (currentTime * 100) / duration;
       if (this.status == 100) {
+        this.isPlaybackrate = false;
         setTimeout(() => {
           this.isReplay = true;
           this.isPlayed = false;
           this.isControlElementsFixed = true;
-          this.isPlaybackrate = false;
+          this.player?.playbackRate(this.playbackrates[2]);
         }, 500);
       }
     }
