@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm your email</title>
+    <style>
+        @font-face {
+            font-family: 'DM Sans';
+            src: url(../src/assets/fonts/DMSans-VariableFont_opsz\,wght.ttf);
+        }
+
+        * {
+            margin: 0;
+            box-sizing: border-box;
+            user-select: none;
+            scroll-behavior: smooth;
+            color: rgba(83, 84, 86, 1);
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            overflow-x: hidden;
+            background: rgba(255, 255, 255, 1);
+            padding: 64px 96px;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 24px;
+            padding: 10px;
+        }
+
+        span {
+            font-family: 'DM Sans';
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            word-break: break-word;
+        }
+
+        a {
+            font-family: 'DM Sans';
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: rgba(46, 62, 223, 1);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        p {
+            font-family: 'DM Sans';
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        button {
+            width: max-content;
+            height: 48px;
+            border-radius: 40px;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(46, 62, 223, 1);
+            border: 1px solid rgba(46, 62, 223, 1);
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgba(102, 0, 218, 1);
+            border-color: rgba(102, 0, 218, 1);
+        }
+
+        button:active {
+            background-color: rgba(123, 12, 254, 1);
+            border-color: rgba(123, 12, 254, 1);
+        }
+
+        .logo-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 250.82px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="logo-container">
+            <img class="logo" src="../src/assets/img/logo-full.svg" alt="Logo">
+        </div>
+        <span>
+            Dear <a style="cursor: default;">[User's Name]</a>,
+            <br>
+            Thank you for registering with <a href="https://videoflix.pirathib-mahalingam.ch/">Videoflix</a>. To
+            complete your registration and verify your email address,
+            please click the link below:
+            <br>
+        </span>
+        <button onclick="" type="button">
+            <p>Activate account</p>
+        </button>
+        <span>
+            If you did not create an account with us, please disregard this email.
+            <br><br>
+            Best regards,
+            <br><br>
+            Your Videoflix Team.
+        </span>
+    </div>
+</body>
+
+</html>
