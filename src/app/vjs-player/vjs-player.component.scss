@@ -313,6 +313,39 @@
     }
 }
 
+
+.custom-video-player:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--card-background);
+
+    .header-container.animate,
+    .control-container.animate {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .video-js {
+        width: 100vw;
+        height: 100vh;
+    }
+}
+
+.custom-video-player:-webkit-full-screen {
+    width: 100vw;
+    height: 100vh;
+}
+
+.custom-video-player:-moz-full-screen {
+    width: 100vw;
+    height: 100vh;
+}
+
+.custom-video-player:-ms-fullscreen {
+    width: 100vw;
+    height: 100vh;
+}
+
 @keyframes showHeader {
     0% {
         opacity: 1;

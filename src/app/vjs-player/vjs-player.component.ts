@@ -72,6 +72,11 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (this.isBrowser) {
       this.registerMouseEvents();
+
+      document.addEventListener('fullscreenchange', this.handleFullscreenChange.bind(this));
+      document.addEventListener('webkitfullscreenchange', this.handleFullscreenChange.bind(this));
+      document.addEventListener('mozfullscreenchange', this.handleFullscreenChange.bind(this));
+      document.addEventListener('MSFullscreenChange', this.handleFullscreenChange.bind(this));
     }
 
     if (isPlatformBrowser(this.platformId)) {
@@ -86,6 +91,35 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
           // }
         }
       });
+    }
+  }
+
+
+  handleFullscreenChange() {
+    this.isFullscreen = !!document.fullscreenElement;
+    if (this.isFullscreen) {
+      this.isControlElements = true;
+      if (this.controlTimer) {
+        clearTimeout(this.controlTimer);
+      }
+      this.controlTimer = setTimeout(() => {
+        this.isControlElements = false;
+      }, 2000);
+    }
+  }
+
+
+  ngOnDestroy() {
+    if (this.player) {
+      this.player.dispose();
+    }
+    if (this.isBrowser) {
+      this.removeMouseEvents();
+
+      document.removeEventListener('fullscreenchange', this.handleFullscreenChange.bind(this));
+      document.removeEventListener('webkitfullscreenchange', this.handleFullscreenChange.bind(this));
+      document.removeEventListener('mozfullscreenchange', this.handleFullscreenChange.bind(this));
+      document.removeEventListener('MSFullscreenChange', this.handleFullscreenChange.bind(this));
     }
   }
 
@@ -199,7 +233,12 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
           this.player = videojs(this.target.nativeElement, playerOptions);
 
           this.player.on('progress', this.updateBufferedTime.bind(this));
-          this.togglePlay();
+          this.player.on('loadedmetadata', () => {
+            setTimeout(() => {
+              this.togglePlay();
+            }, 1000);
+          })
+          // this.togglePlay();
           this.getCurrentTime();
           // this.updateBufferedTime();
           this.getDurationTime();
@@ -305,14 +344,6 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy() {
-    if (this.player) {
-      this.player.dispose();
-    }
-    this.removeMouseEvents();
-  }
-
-
   backToDashboard() {
     this.router.navigate(['/dashboard']);
   }
@@ -323,13 +354,43 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   }
 
 
-  toggleFullscreen() {
-    if (!this.player) return;
+  // toggleFullscreen() {
+  //   if (!this.player) return;
 
-    if (this.isFullscreen) {
-      this.player.exitFullscreen();
+  //   if (this.isFullscreen) {
+  //     this.player.exitFullscreen();
+  //   } else {
+  //     this.player.requestFullscreen();
+  //   }
+  // }
+
+  toggleFullscreen() {
+    const playerContainer = document.querySelector('.custom-video-player') as HTMLElement;
+
+    if (!document.fullscreenElement) {
+      // Gehe in den Vollbildmodus
+      if (playerContainer.requestFullscreen) {
+        playerContainer.requestFullscreen();
+      } else if ((playerContainer as any).mozRequestFullScreen) {
+        (playerContainer as any).mozRequestFullScreen();
+      } else if ((playerContainer as any).webkitRequestFullscreen) {
+        (playerContainer as any).webkitRequestFullscreen();
+      } else if ((playerContainer as any).msRequestFullscreen) {
+        (playerContainer as any).msRequestFullscreen();
+      }
+      this.isFullscreen = true;
     } else {
-      this.player.requestFullscreen();
+      // Verlasse den Vollbildmodus
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if ((document as any).mozCancelFullScreen) {
+        (document as any).mozCancelFullScreen();
+      } else if ((document as any).webkitExitFullscreen) {
+        (document as any).webkitExitFullscreen();
+      } else if ((document as any).msExitFullscreen) {
+        (document as any).msExitFullscreen();
+      }
+      this.isFullscreen = false;
     }
   }
 
