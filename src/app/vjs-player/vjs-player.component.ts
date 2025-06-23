@@ -275,6 +275,7 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
           this.isReplay = true;
           this.isPlayed = false;
           this.isControlElementsFixed = true;
+          this.isPlaybackrate = false;
         }, 500);
       }
     }
