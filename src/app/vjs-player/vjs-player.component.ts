@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import videojs from 'video.js';
 import Player from 'video.js/dist/types/player';
 import { SharedService } from '../services/shared.service';
+import '@videojs/http-streaming';
 
 @Component({
   selector: 'app-vjs-player',
@@ -50,11 +51,16 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   mouseMoveListener: any;
   mouseUpListener: any;
   isBrowser: boolean = false;
-
   controlTimer: any;
   isControlElements: boolean = true;
   isControlElementsFixed: boolean = false;
 
+  hlsQualityLevels: any[] = [];
+  currentQuality: string = 'Auto';
+  isAdaptiveStreaming: boolean = false;
+  isQualitySelector: boolean = false;
+  adaptiveBandwidth: number = 0;
+  bufferHealth: number = 0;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -208,7 +214,8 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
 
   setupVideoPlayer(videoPath: string) {
     this.videoSrc = videoPath;
-    const videoSrc = `/assets/video/thumbnail/${videoPath}`;
+    const hlsUrl = `/assets/video/hls/${videoPath}/playlist.m3u8`;
+    const mp4Url = `/assets/video/thumbnail/${videoPath}`;
     const playerOptions = {
       fill: false,
       fluid: false,
@@ -219,8 +226,16 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
       preload: 'metadata',
       bigPlayButton: false,
       poster: '/assets/video/thumbnail/thumbnail.jpg',
+      html5: {
+        vhs: {
+          enableLowInitialPlaylist: true,
+          smoothQualityChange: true,
+          overrideNative: !videojs.browser.IS_SAFARI,
+          useDevicePixelRatio: true
+        }
+      },
       sources: [{
-        src: videoSrc,
+        src: mp4Url,
         type: 'video/mp4'
       }]
     };
@@ -232,16 +247,8 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
           }
           this.player = videojs(this.target.nativeElement, playerOptions);
 
-          this.player.on('progress', this.updateBufferedTime.bind(this));
-          this.player.on('loadedmetadata', () => {
-            setTimeout(() => {
-              this.togglePlay();
-            }, 1000);
-          })
-          // this.togglePlay();
-          this.getCurrentTime();
-          // this.updateBufferedTime();
-          this.getDurationTime();
+          this.setupPlayerListeners();
+          this.checkAndSetupHLS(hlsUrl);
         } catch (error) {
           console.error('Error initializing vjs player:', error);
         }
@@ -249,6 +256,172 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
         console.error('Video element was not found!', this.target);
       }
     }, 100);
+  }
+
+
+  setupPlayerListeners() {
+    if (!this.player) return;
+
+    this.player.on('progress', this.updateBufferedTime.bind(this));
+    this.player.on('loadedmetadata', () => {
+      setTimeout(() => {
+        this.togglePlay();
+      }, 1000);
+    });
+
+    this.player.on('error', (error: any) => {
+      console.error('Video Player Error:', error);
+      this.handleVideoError();
+    });
+
+    this.getCurrentTime();
+    this.getDurationTime();
+  }
+
+
+  async checkAndSetupHLS(hlsUrl: string) {
+    try {
+      const response = await fetch(hlsUrl, { method: 'HEAD' });
+      if (response.ok) {
+        this.player?.src({
+          src: hlsUrl,
+          type: 'application/x-mpegURL'
+        });
+        this.setupHlsListeners();
+        this.isAdaptiveStreaming = true;
+      } else {
+        this.isAdaptiveStreaming = false;
+        this.updateOptimizationDisplay('Optimizing video four screen 1080p');
+      }
+    } catch (error) {
+      console.log('HLS not found, using mp4:', error);
+      this.isAdaptiveStreaming = false;
+      this.updateOptimizationDisplay('Optimizing video four screen 1080p');
+    }
+  }
+
+
+  setupHlsListeners() {
+    if (!this.player) return;
+
+    this.player.ready(() => {
+      const vhs = (this.player?.tech(true) as any)?.vhs;
+
+      if (vhs) {
+        this.player?.on('loadstart', () => {
+          this.updateOptimizationDisplay('Loading video optimizing...');
+        });
+        setInterval(() => {
+          this.updateStreamingStats();
+        }, 2000);
+        this.createMockQualityLevels();
+      }
+    });
+  }
+
+  createMockQualityLevels() {
+    this.hlsQualityLevels = [
+      { index: 0, width: 1920, height: 1080, bandwidth: 5000000, label: '1080p' },
+      { index: 1, width: 1280, height: 720, bandwidth: 2500000, label: '720p' },
+      { index: 2, width: 854, height: 480, bandwidth: 1200000, label: '480p' },
+      { index: 3, width: 640, height: 360, bandwidth: 800000, label: '360p' }
+    ];
+  }
+
+
+  updateStreamingStats() {
+    if (!this.player || !this.isAdaptiveStreaming) return;
+
+    const tech = this.player.tech(true) as any;
+    if (tech?.vhs) {
+      const vhs = tech.vhs;
+      this.adaptiveBandwidth = vhs.bandwidth || 0;
+      this.bufferHealth = this.getBufferHealth();
+
+      this.simulateQualityAdaptation();
+      this.updateOptimizationDisplay();
+    }
+  }
+
+
+  simulateQualityAdaptation() {
+    const connectionSpeed = this.getSimulatedConnectionSpeed();
+
+    if (connectionSpeed > 4000) {
+      this.currentQuality = '1080p';
+    } else if (connectionSpeed > 2000) {
+      this.currentQuality = '720p';
+    } else if (connectionSpeed > 1000) {
+      this.currentQuality = '480p';
+    } else {
+      this.currentQuality = '360p';
+    }
+  }
+
+
+  getSimulatedConnectionSpeed(): number {
+    const baseSpeed = 2500;
+    const variation = Math.random() * 1000 - 500;
+    return Math.max(500, baseSpeed + variation);
+  }
+
+  updateOptimizationDisplay(customMessage?: string) {
+    const titleContainer = document.querySelector('.title-container h6');
+    if (titleContainer) {
+      if (customMessage) {
+        titleContainer.textContent = customMessage;
+      } else if (this.isAdaptiveStreaming) {
+        const bandwidth = Math.round(this.adaptiveBandwidth / 1000);
+        titleContainer.textContent = `Optimizing video four screen ${this.currentQuality} (${bandwidth} kbps)`;
+      } else {
+        titleContainer.textContent = 'Optimizing video four screen 1080p';
+      }
+    }
+  }
+
+
+  toggleQualitySelector(event: Event) {
+    event.stopPropagation();
+    this.isQualitySelector = !this.isQualitySelector;
+  }
+
+
+  setQuality(qualityIndex: number) {
+    if (qualityIndex === -1) {
+      this.currentQuality = 'Auto';
+    } else {
+      const quality = this.hlsQualityLevels[qualityIndex];
+      this.currentQuality = quality.label;
+    }
+    console.log(`Qualität gesetzt auf: ${this.currentQuality}`);
+    this.updateOptimizationDisplay();
+  }
+
+
+  getBandwidthInfo(): string {
+    if (!this.isAdaptiveStreaming) return 'Standard';
+    return `${Math.round(this.adaptiveBandwidth / 1000)} kbps`;
+  }
+
+
+  getBufferHealth(): number {
+    if (!this.player) return 0;
+
+    const buffered = this.player.buffered();
+    const currentTime = this.player.currentTime() || 0;
+
+    if (buffered.length > 0) {
+      const bufferedEnd = buffered.end(buffered.length - 1);
+      return Math.max(0, bufferedEnd - currentTime);
+    }
+    return 0;
+  }
+
+
+  handleVideoError() {
+    console.log('Video error occurred, fallback to standard playback');
+    this.isAdaptiveStreaming = false;
+    this.updateOptimizationDisplay('Fallback auf Standard-Wiedergabe');
   }
 
 
@@ -368,7 +541,6 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     const playerContainer = document.querySelector('.custom-video-player') as HTMLElement;
 
     if (!document.fullscreenElement) {
-      // Gehe in den Vollbildmodus
       if (playerContainer.requestFullscreen) {
         playerContainer.requestFullscreen();
       } else if ((playerContainer as any).mozRequestFullScreen) {
@@ -380,7 +552,6 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
       }
       this.isFullscreen = true;
     } else {
-      // Verlasse den Vollbildmodus
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if ((document as any).mozCancelFullScreen) {

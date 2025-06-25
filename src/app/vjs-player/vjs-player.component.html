@@ -17,7 +17,9 @@
             </svg>
         </div>
         <div class="title-container">
-            <h6>Optimizing video for your screen 40%</h6>
+            <h6>
+                {{ isAdaptiveStreaming ? 'Optimizing video for your screen ' + currentQuality : 'Optimizing video four screen 1080p' }}
+            </h6>
         </div>
         <div class="logo-container" (click)="backToDashboard()">
             <img src="assets/img/logo.svg" alt="Logo">
