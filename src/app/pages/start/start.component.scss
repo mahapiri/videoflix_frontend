@@ -22,26 +22,27 @@
 }
 
 .signup-form {
-    width: max-content;
+    // width: max-content;
+    width: 100%; // responsive
     display: flex;
     justify-content: space-between;
     gap: 16px;
     position: relative;
 
-    .error-field {
-        position: absolute;
-        top: 52px;
-        left: 0;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 4px;
-        @include transition-75;
+    // .error-field {
+    //     position: absolute;
+    //     top: 52px;
+    //     left: 0;
+    //     display: flex;
+    //     justify-content: flex-start;
+    //     align-items: center;
+    //     gap: 4px;
+    //     @include transition-75;
 
-        .errormsg {
-            display: contents;
-        }
-    }
+    //     .errormsg {
+    //         display: contents;
+    //     }
+    // }
 
     .btn-content {
         display: flex;
@@ -56,5 +57,5 @@
 }
 
 .inputfield {
-    @include input-params(360px, 40px, var(--white), 10px)
+    @include input-params(inherit, 40px, var(--white), 10px)
 }

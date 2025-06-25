@@ -13,7 +13,10 @@ import { ValidationService } from '../../services/validation.service';
     CommonModule
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: [
+    './login.component.scss',
+    './login-responsive.component.scss'
+  ]
 })
 export class LoginComponent {
   form: FormGroup;

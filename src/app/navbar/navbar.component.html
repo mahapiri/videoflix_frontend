@@ -2,6 +2,7 @@
     <img routerLink="/dashboard" class="logo" [class.w-200]="(sharedService.isNavbar$ | async)"
         [src]="(sharedService.isNavbar$ | async) ? 'assets/img/logo-full.svg': 'assets/img/logo.svg'"
         alt="Videoflix Logo">
+    <img routerLink="/dashboard" class="logo-mobile" src="assets/img/logo.svg" alt="Videoflix Logo">
     <button routerLink="/login" *ngIf="!(sharedService.isPrivacy$ | async)">
         <p class="weight-700">Log in</p>
     </button>

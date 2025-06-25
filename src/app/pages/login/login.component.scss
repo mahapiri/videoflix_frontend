@@ -13,19 +13,20 @@
     @include transition-100;
 }
 
-form {
-    width: 520px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-    border-radius: 48px;
-    padding: 43px 56px;
-    background-color: var(--card-background);
-    @include transition-100;
-}
+// form {
+//     width: 520px;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     gap: 32px;
+//     border-radius: 48px;
+//     padding: 43px 56px;
+//     background-color: var(--card-background);
+//     @include transition-100;
+// }
 
 .inputfield-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -55,7 +56,7 @@ form {
 }
 
 .inputfield {
-    @include input-params(408px, 12px, var(--primary), 12px);
+    @include input-params(inherit, 12px, var(--primary), 12px);
     padding-left: 64px;
 }
 
@@ -100,5 +101,6 @@ form {
 .signup-section {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 16px;
 }

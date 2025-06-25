@@ -1,0 +1,56 @@
+@media (min-width: 0px) {
+    h1 {
+        font-size: 40px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    form {
+        width: 300px;
+        padding: 43px 24px;
+    }
+}
+
+@media (min-width: 375px) {
+    form {
+        width: 358px;
+    }
+}
+
+@media (min-width: 425px) {}
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: 48px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    form {
+        width: 520px;
+        padding: 43px 56px;
+    }
+}
+
+@media (min-width: 1024px) {}
+
+@media (min-width: 1440px) {}
+
+@media (min-width: 1920px) {}
+
+
+@media (min-height: 0px) {
+    .main-container {
+        height: unset;
+    }
+}
+
+@media (min-height: 682px) {
+    .main-container {
+        height: 100%;
+    }
+}

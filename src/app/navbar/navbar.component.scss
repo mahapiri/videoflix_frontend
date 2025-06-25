@@ -6,16 +6,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 96px;
     // background: transparent;
     // position: relative;
     // z-index: 10;
-}
-
-.logo {
-    height: 32px;
-    cursor: pointer;
-    @include transition-100;
 }
 
 .w-200 {
@@ -34,3 +27,48 @@ header {
         }
     }
 }
+
+@media (min-width: 0px) {
+    header {
+        padding: 10px 16px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .logo-mobile {
+        display: block;
+        height: 32px;
+    }
+}
+
+@media (min-width: 375px) {}
+
+@media (min-width: 425px) {}
+
+@media (min-width: 525px) {
+    header {
+        padding: 10px 96px;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .logo {
+        display: block;
+        height: 32px;
+        cursor: pointer;
+        @include transition-100;
+    }
+
+    .logo-mobile {
+        display: none;
+    }
+}
+
+@media (min-width: 1024px) {}
+
+@media (min-width: 1440px) {}
+
+@media (min-width: 1920px) {}
