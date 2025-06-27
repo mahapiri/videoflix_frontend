@@ -1,0 +1,103 @@
+@media (min-width: 0px) {
+    .main-container {
+        width: 100vw;
+        max-width: unset;
+        height: inherit;
+        flex-direction: column;
+        bottom: 0;
+        margin: unset;
+        padding: 40px 32px 24px 24px;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .error-color {
+        width: 100%;
+        height: 16px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .error-content {
+        flex-direction: column;
+    }
+
+    .close-container {
+        position: absolute;
+        top: 32px;
+        right: 20px;
+
+        .divider {
+            display: none;
+        }
+    }
+
+    .error-content {
+        padding-right: unset;
+
+        h5 {
+            height: unset;
+        }
+    }
+}
+
+@media (min-width: 375px) {}
+
+@media (min-width: 425px) {}
+
+@media (min-width: 768px) {
+    .main-container {
+        width: unset;
+        max-width: max-content;
+        height: 80px;
+        bottom: 84px;
+        flex-direction: unset;
+        margin: 0 96px;
+        padding: 24px 32px 24px 0;
+        border-radius: 20px 20px 20px 20px;
+    }
+
+    .error-color {
+        width: unset;
+        min-width: 24px;
+        height: 80px;
+        position: unset;
+        top: unset;
+        left: 0;
+        border-radius: 20px 0 0 20px;
+    }
+
+    .error-content {
+        flex-direction: unset;
+    }
+
+    .close-container {
+        position: unset;
+        top: unset;
+        right: unset;
+
+        .divider {
+            display: block;
+        }
+    }
+
+    .error-content {
+        padding-right: 32px;
+
+        h5 {
+            height: 48px;
+        }
+    }
+}
+
+@media (min-width: 1024px) {}
+
+@media (min-width: 1440px) {}
+
+@media (min-width: 1920px) {}
+
+
+@media (min-height: 0px) {}
+
+@media (min-height: 682px) {}

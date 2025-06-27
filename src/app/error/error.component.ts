@@ -5,7 +5,10 @@ import { ApiService } from '../services/api.service';
   selector: 'app-error',
   imports: [],
   templateUrl: './error.component.html',
-  styleUrl: './error.component.scss'
+  styleUrls: [
+    './error.component.scss',
+    './error-responsive.component.scss',
+  ]
 })
 export class ErrorComponent {
 
@@ -20,6 +23,6 @@ export class ErrorComponent {
   }
 
   sendApiRequest() {
-    
+    this.apiService.setIsError(false);
   }
 }

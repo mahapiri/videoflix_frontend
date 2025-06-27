@@ -1,26 +1,24 @@
 @use "../../styles.scss" as *;
 
 .main-container {
-    max-width: max-content;
-    height: 80px;
-    border-radius: 20px;
-    padding: 24px 32px 24px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-    background-color: var(--primary);
-    margin: 0 96px;
     position: fixed;
-    bottom: 84px;
     left: 0;
     z-index: 10;
+    background-color: var(--primary);
 
     .error-color {
-        min-width: 24px;
-        height: 80px;
         background-color: var(--error-red);
-        border-radius: 20px 0 0 20px ;
+    }
+
+    .error-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
     }
 }
 
@@ -30,7 +28,6 @@
     gap: 16px;
 
     h5 {
-        height: 48px;
         display: flex;
         align-items: center;
         overflow-y: scroll;
