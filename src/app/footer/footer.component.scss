@@ -13,8 +13,6 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 96px;
-    bottom: -86px;
     left: 0;
     z-index: 1;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 50%);
@@ -36,15 +34,28 @@ footer {
     .legal-containter {
         gap: 32px;
     }
+
+    .top-gradient-overlay {
+        bottom: -845%;
+        padding: 10px 16px;
+    }
 }
 
 @media (min-width: 375px) {}
 
-@media (min-width: 425px) {}
+@media (min-width: 525px) {
+    .top-gradient-overlay {
+        bottom: -1000%;
+    }
+}
 
 @media (min-width: 768px) {
     .legal-containter {
         gap: 48px;
+    }
+
+    .top-gradient-overlay {
+        padding: 10px 96px;
     }
 }
 

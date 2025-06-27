@@ -1,14 +1,23 @@
 @use "../../../styles.scss" as *;
 
+.master-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
 .main-container {
     width: 100%;
-    height: 100%;
+    height: 480px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     @include transition-100;
-    padding: 0 16px;
+
+    .bg-image {
+        height: 100%;
+    }
 
     h1 {
         text-align: center;
@@ -43,11 +52,10 @@
 }
 
 .signup-form {
-    // width: max-content;
-    width: 100%; // responsive
+    // width: max-content; // responsive
     display: flex;
     justify-content: space-between;
-    gap: 16px;
+    gap: 32px;
     position: relative;
 
     // .error-field {
@@ -64,6 +72,15 @@
     //         display: contents;
     //     }
     // }
+
+    .signup-content {
+        width: inherit;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+        position: relative;
+    }
 
     .btn-content {
         display: flex;
@@ -87,7 +104,13 @@
     //     }
     // }
     .main-container {
+        width: inherit;
         gap: 16px;
+        padding: 0 16px;
+
+        .bg-image {
+            width: 100%;
+        }
 
         h4 {
             display: block;
@@ -102,22 +125,31 @@
             @include input-params(100%, 40px, var(--white), 10px)
         }
     }
+
+    .signup-form {
+        width: 100%;
+    }
+
+    .signup-content {
+        flex-direction: column;
+    }
 }
 
 @media (min-width: 375px) {}
 
-@media (min-width: 425px) {
+@media (min-width: 425px) {}
+
+@media (min-width: 525px) {
     .main-container {
-        .inputfield {
-            @include input-params(360px, 40px, var(--white), 10px)
-        }
+        width: inherit;
+        gap: 16px;
+        padding: 0 96px;
     }
 }
 
-@media (min-width: 525px) {}
-
 @media (min-width: 768px) {
     .main-container {
+        width: 100%;
         gap: 32px;
 
         h4 {
@@ -128,6 +160,18 @@
             flex-direction: row;
             justify-content: center;
         }
+
+        .inputfield {
+            @include input-params(360px, 40px, var(--white), 10px)
+        }
+    }
+
+    .signup-form {
+        width: max-content;
+    }
+
+    .signup-content {
+        flex-direction: unset;
     }
 }
 

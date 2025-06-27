@@ -3,17 +3,18 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 import { SharedService } from '../../services/shared.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { FooterComponent } from '../../footer/footer.component';
 
 @Component({
   selector: 'app-dashboard',
   imports: [
     NavbarComponent,
-    CommonModule,
-    FooterComponent
+    CommonModule
   ],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrls: [
+    './dashboard.component.scss',
+    './dashboard-responsive.component.scss'
+  ]
 })
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   lastScrollPosition: number = 0;
@@ -94,7 +95,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  
+
   mouseDown(event: MouseEvent): void {
     const element = event.currentTarget as HTMLElement;
     if (!element) return;
