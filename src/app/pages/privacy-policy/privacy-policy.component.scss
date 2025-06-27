@@ -2,20 +2,15 @@
 
 .main-container {
     width: 100%;
-    // height: 100%;
+    height: max-content;
     display: flex;
     flex-direction: column;
     gap: 40px;
     @include transition-100;
-    padding: 32px 96px;
     // overflow-y: scroll;
 
     h2 {
         color: var(--primary);
-    }
-    
-    p {
-        text-align: justify;
     }
 }
 
@@ -24,3 +19,54 @@
     flex-direction: column;
     gap: 16px;
 }
+
+@media (min-width: 0px) {
+    .main-container {
+        padding: 32px 16px;
+    }
+
+    ul {
+        padding-left: 22px;
+    }
+
+    .contact-content {
+        p {
+            text-align: start;
+            font-size: 14px;
+        }
+    }
+}
+
+@media (min-width: 375px) {}
+
+@media (min-width: 425px) {}
+
+@media (min-width: 525px) {
+    .main-container {
+        padding: 32px 96px;
+    }
+
+    ul {
+        padding-left: 40px;
+    }
+
+    .contact-content {
+        p {
+            text-align: justify;
+            font-size: 16px;
+        }
+    }
+}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 1024px) {}
+
+@media (min-width: 1440px) {}
+
+@media (min-width: 1920px) {}
+
+
+@media (min-height: 0px) {}
+
+@media (min-height: 682px) {}

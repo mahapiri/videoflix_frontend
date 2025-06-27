@@ -28,7 +28,33 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 48px;
     position: relative;
     z-index: 1;
 }
+
+@media (min-width: 0px) {
+    .legal-containter {
+        gap: 32px;
+    }
+}
+
+@media (min-width: 375px) {}
+
+@media (min-width: 425px) {}
+
+@media (min-width: 768px) {
+    .legal-containter {
+        gap: 48px;
+    }
+}
+
+@media (min-width: 1024px) {}
+
+@media (min-width: 1440px) {}
+
+@media (min-width: 1920px) {}
+
+
+@media (min-height: 0px) {}
+
+@media (min-height: 682px) {}
