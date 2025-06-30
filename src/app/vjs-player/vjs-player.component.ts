@@ -50,6 +50,8 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   isDragging: boolean = false;
   mouseMoveListener: any;
   mouseUpListener: any;
+  touchMoveListener: any;
+  touchEndListener: any;
   isBrowser: boolean = false;
   controlTimer: any;
   isControlElements: boolean = true;
@@ -78,6 +80,7 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (this.isBrowser) {
       this.registerMouseEvents();
+      this.registerTouchEvents();
 
       document.addEventListener('fullscreenchange', this.handleFullscreenChange.bind(this));
       document.addEventListener('webkitfullscreenchange', this.handleFullscreenChange.bind(this));
@@ -121,6 +124,7 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     }
     if (this.isBrowser) {
       this.removeMouseEvents();
+      this.removeTouchEvents();
 
       document.removeEventListener('fullscreenchange', this.handleFullscreenChange.bind(this));
       document.removeEventListener('webkitfullscreenchange', this.handleFullscreenChange.bind(this));
@@ -131,6 +135,62 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
 
 
   ngAfterViewInit(): void {
+  }
+
+
+  registerTouchEvents() {
+    if (this.isBrowser) {
+      this.touchMoveListener = this.onTouchMove.bind(this);
+      this.touchEndListener = this.stopDrag.bind(this);
+
+      document.addEventListener('touchmove', this.touchMoveListener, { passive: false });
+      document.addEventListener('touchend', this.touchEndListener);
+    }
+  }
+
+
+  removeTouchEvents() {
+    if (this.isBrowser) {
+      if (this.touchMoveListener) {
+        document.removeEventListener('touchmove', this.touchMoveListener);
+      }
+      if (this.touchEndListener) {
+        document.removeEventListener('touchend', this.touchEndListener);
+      }
+    }
+  }
+
+
+  onTouchMove(event: TouchEvent) {
+    event.preventDefault();
+    this.showControlElements();
+
+    if (this.isDragging && event.touches.length > 0) {
+      const touch = event.touches[0];
+      const mouseEvent = new MouseEvent('mousemove', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+      });
+      this.updateStatusPosition(mouseEvent);
+    }
+  }
+
+
+  onVideoTouch(event: TouchEvent) {
+    this.showControlElements();
+  }
+
+
+  showControlElements() {
+    this.isControlElements = true;
+
+    if (this.controlTimer) {
+      clearTimeout(this.controlTimer);
+    }
+
+    this.controlTimer = setTimeout(() => {
+      this.isControlElements = false;
+    }, 3000);
   }
 
 
@@ -462,7 +522,6 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     let duration = this.player?.duration();
     if (duration && duration > 0) {
       this.uploadStatus = (bufferedEnd * 100) / duration;
-      console.log(this.uploadStatus)
     }
   }
 
