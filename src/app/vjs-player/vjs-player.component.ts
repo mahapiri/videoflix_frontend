@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser, Location } from '@angular/common';
-import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import videojs from 'video.js';
 import Player from 'video.js/dist/types/player';
@@ -64,6 +64,8 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
   adaptiveBandwidth: number = 0;
   bufferHealth: number = 0;
 
+  isMobile: boolean = false;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
@@ -74,6 +76,12 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     this.isBrowser = isPlatformBrowser(platformId);
     this.sharedService.setIsNavbar(false);
     this.sharedService.setIsFooter(false);
+    this.isMobile = window.innerWidth <= 768;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobile = window.innerWidth <= 768;
   }
 
 
