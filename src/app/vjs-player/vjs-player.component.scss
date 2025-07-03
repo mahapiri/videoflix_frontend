@@ -257,11 +257,12 @@
 }
 
 .speed-container {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     right: 32px;
     bottom: 124px;
-    display: flex;
-    flex-direction: column;
+    z-index: 1000;;
     @include card-box(fit-content, 22px, 10px, 10px);
     @include transition-100;
 }
